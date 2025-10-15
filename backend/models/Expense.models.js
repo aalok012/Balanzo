@@ -1,22 +1,34 @@
 import mongoose from "mongoose";
- const expenseSchema = new mongoose.model({
-    expenseAmount: {
-        type: Schema.Types.objectId,
-        ref: User,
-        required: true
-        
-    },
-    Description:{
-        type: string,
 
+const expenseSchema = new mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
-    Date: {
-        type: Number,
-        required: true,
+    amount: {
+      type: Number,
+      required: true,
+      min: 0,
     },
-    Category:{
-        type: string,
-        reuired: true
-    }
+    description: {
+      type: String,
+      trim: true,
+    },
+    date: {
+      type: Date,
+      required: true,
+      default: Date.now,
+    },
+    category: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+  },
+  { timestamps: true }
+);
 
- })
+export const Expense = mongoose.model("Expense", expenseSchema);
+export default Expense;
