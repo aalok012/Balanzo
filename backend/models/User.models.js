@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+//use preehooksss
 const userSchema = new mongoose.Schema(
   {
     username: {
@@ -36,3 +36,4 @@ const userSchema = new mongoose.Schema(
 
 export const User = mongoose.model("User", userSchema);
 export default User;
+//use of prehooks to use jwt and bcrypt
