@@ -34,6 +34,21 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const User = mongoose.model("User", userSchema);
-export default User;
+
 //use of prehooks to use jwt and bcrypt
+userSchema.pre('save', async function(next){
+  if(this.isModified("password")) return next()
+this.password= bcrypt.hash(this.password, 12)
+});
+
+userSchema.methods.generateAccessToken= function() { 
+  return jwt.sign( 
+  {
+    _id: this._id,
+    email:this.email,
+    username : this.username,
+    fullname: this.fullname
+  }, 
+)}
+
+export const User = mongoose.model("User", userSchema);
