@@ -11,8 +11,8 @@
 
 //wrapper function for the handling async function everywhere
 
-const asyncHandler = (fn) =>async(req,res,next) => {
-    try{
+const asyncHandler = (fn) => async (req,res,next) => {
+     try{
            await fn(req,res,next)
     }
     catch(error){
@@ -22,3 +22,4 @@ const asyncHandler = (fn) =>async(req,res,next) => {
             })
     }
 }
+export { asyncHandler}
