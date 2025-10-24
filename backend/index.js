@@ -4,6 +4,7 @@ import app from './app.js';
 dotenv.config();
 
 
+
 connectToDB()
 
 . then(()=> { app.listen(process.env.PORT|| 8000,()=> {
@@ -12,4 +13,4 @@ connectToDB()
 })
 .catch((error)=>{
     console.log("DB not connected!", error)
-})
+}) 
