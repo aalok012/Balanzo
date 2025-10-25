@@ -27,3 +27,22 @@ const addExpense = asyncHandler(async(req,res)=>{
         throw new ApiError(400, error?.message||"Something went wrong while saving the data!")
     }
 })
+
+const getAllExpenses = asyncHandler(async(req,res)=>{
+
+   try {
+     const sortBy= await req.query.sort=== "category"? {category:1} : {date:-1}
+      const expenses= await Expense.find({ user: req.user._id }).sort(sortBy);
+ 
+      res.status(204).json(
+         new ApiResponse(200, "Successfully sorted", expenses)
+      )
+   } catch (error) {
+    throw new ApiError(400,"Something went wrong while sorting!")
+   }
+})
+
+const getCalcs= asyncHandler(async(req,res)=>{
+
+//return total expenses, average expense, daily average, highest, ...
+})
