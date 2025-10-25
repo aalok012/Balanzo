@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-//use preehooksss
+import bcrypt from "bcrypt"; //use preehooksss
+import jwt from "jsonwebtoken"
 const userSchema = new mongoose.Schema(
   {
     username: {
@@ -30,6 +31,10 @@ const userSchema = new mongoose.Schema(
       trim: true,
       index: true,
     },
+    refreshToken: {
+      type: String,
+      default: null,
+    },
   },
   { timestamps: true }
 );
@@ -37,12 +42,12 @@ const userSchema = new mongoose.Schema(
 
 //use of prehooks to use jwt and bcrypt
 userSchema.pre('save', async function(next){
-  if(this.isModified("password")) return next() // only if password is modified otherwise it runs the code again and again
-this.password= bcrypt.hash(this.password, 12)
+  if(!this.isModified("password")) return next() // only if password is modified otherwise it runs the code again and again
+this.password= await bcrypt.hash(this.password, 12)
 });
 
 userSchema.methods.isPasswordCorrect= async function (password) { //read mongoose definition for the methods
-  return await bcrypt.compare(password, this.password) //gives the boolean value 
+  return await bcrypt.compare(password, this.password); //gives the boolean value 
 
 }
 userSchema.methods.generateAccessToken= function() { 
@@ -55,7 +60,7 @@ userSchema.methods.generateAccessToken= function() {
   }, process.env.ACCESS_TOKEN_SECRET,{ 
     expiresIn: process.env.ACCESS_TOKEN_EXPRIY}
 )}
-userSchema.methods.generaterRefreshToken= function() { 
+userSchema.methods.generateRefreshToken= function() { 
   return jwt.sign( 
   {
     _id: this._id,
@@ -63,7 +68,7 @@ userSchema.methods.generaterRefreshToken= function() {
     username : this.username,
     fullname: this.fullname
   }, process.env.REFRESH_TOKEN_SECRET,{
-    expiresIn: process.env.REFRESH_TOKEN_SECRET
+    expiresIn: process.env.REFRESH_TOKEN_EXPIRY
   }
 )}
 export const User = mongoose.model("User", userSchema);
