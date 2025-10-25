@@ -25,10 +25,11 @@ const expenseSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
+      enum: ["Food", "Transport", "Rent", "Entertainment"],
     },
   },
   { timestamps: true }
 );
-
+expenseSchema.index({ user: 1, date: -1 });
 export const Expense = mongoose.model("Expense", expenseSchema);
 export default Expense;

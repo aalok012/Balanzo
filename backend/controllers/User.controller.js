@@ -60,7 +60,7 @@ const registerUser = asyncHandler (async(req, res)=> {
                 DOB,
         });
 
-
+        
         //to check in the db to verify the created user.
         const createdUser = await User.findById(newUSer._id).select("-password -refreshToken");
 
