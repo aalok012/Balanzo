@@ -45,4 +45,25 @@ const getAllExpenses = asyncHandler(async(req,res)=>{
 const getCalcs= asyncHandler(async(req,res)=>{
 
 //return total expenses, average expense, daily average, highest, ...
+   const totalByCat=  await Expense.aggregate
+([  {$match:{userId: req.user._id}},
+    {$group:{_id: "category", totalCat: { $sum: "$amount"}},}
+])
+
+const totalAmt= await Expense.aggregate
+([  {$match:{userId: req.user._id}},
+    {$group:{_id: null, totalAmt: { $sum: "$amount"}},}
+])
+
+
+const monthAvg= await Expense.aggregate([
+    {$match:{userId: req.user._id}},
+    {$group:{_id:null,year:{$year:"$date"}, month:{$month:"$date"}}},
+    {avgAmt:{$avg:"$amount"}},
+    { $sort: { "_id.year": 1, "_id.month": 1 } }
+])
+
+
+
+
 })
