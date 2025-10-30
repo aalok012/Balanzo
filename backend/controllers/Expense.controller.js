@@ -2,8 +2,9 @@ import Expense from "../models/Expense.models";
 import ApiError from "../utils/ApiError";
 import ApiResponse from "../utils/ApiResponse";
 import { asyncHandler } from "../utils/asyncHandler";
+import asyncHandler from 'express-async-handler';
 
-const addExpense = asyncHandler(async(req,res)=>{
+const addExpenseToDb = asyncHandler(async(req,res)=>{
     const {amount,description,date,category} = req.body;
      
     if(!(amount&&description&&date&&category)){
@@ -29,98 +30,152 @@ const addExpense = asyncHandler(async(req,res)=>{
 })
 
 const getAllExpenses = asyncHandler(async(req,res)=>{
-
-   try {
-     const sortBy= await req.query.sort=== "category"? {category:1} : {date:-1}
-      const expenses= await Expense.find({ user: req.user._id }).sort(sortBy);
- 
-      res.status(204).json(
-         new ApiResponse(200, "Successfully sorted", expenses)
-      )
-   } catch (error) {
-    throw new ApiError(400,"Something went wrong while sorting!")
-   }
+   const sortBy = req.query.sort === "category" ? {category:1} : {date:-1}
+   const expenses = await Expense.find({ user: req.user._id }).sort(sortBy);
    
+   res.status(200).json(
+      new ApiResponse(200, "Successfully sorted", expenses)
+   )
 })
 
-const getCalcs= asyncHandler(async(req,res)=>{
-
-//return total expenses, average expense, daily average, highest, ...
-
-   const totalByCat=  await Expense.aggregate
-([  {$match:{userId: req.user._id}},
-    {$group:{_id: "category", totalCat: { $sum: "$amount"}},}
-])
-
-const totalAmt= await Expense.aggregate
-([  {$match:{userId: req.user._id}},
-    {$group:{_id: null, totalAmt: { $sum: "$amount"}},}
-])
-
-
-const monthAvg= await Expense.aggregate([
-    {$match:{userId: req.user._id}},
-    {$group:{_id:null,year:{$year:"$date"}, month:{$month:"$date"}}},
-    {avgAmt:{$avg:"$amount"}},
-    { $sort: { "_id.year": 1, "_id.month": 1 } }
-])
-
-  const start = new Date(startDate);
-  const end = new Date(endDate);
-  const sortDirection = sortOrder === "asc" ? 1 : -1;
-
-  const specificExp= await Expense.aggregate([
-    {$match:{
-        userId: req.user._id,
-        category:category,
-        date: { $gte: start, $lte: end }
-     }
-
-    },
-     { $group:{
-        _id:"category",
-        totalAmount:{$sum:"$amount"}
-     }
-
-     },
-
-     { sort:{"date":sortDirection} }
-    
-
-    ])
-
-
-    const {search}= req.body
-    const regex = new RegExp(search,  "i") //i is case sensitive so reverse it using js method
-    const searchExp= await Expense.aggregate([
-      { 
-        $match:{
-        userId:req.user._id,
-        category:{$regex:regex}
-      }
-      },
-
-      {
-        $group:{
-
-            _id: $category,
-            totalAmount:{$sum:"$amount"},
-            count: {$sum: 1},
-            latestDate:{$max: "$date"},
-        }
-      },
-      {sort:{latestDate:-1}},
-      {
-        $project:{
-            _id:0,
-            category: "_id",
-            totalAmount:1,
-            latestDate:1,
-            count:1
-        }
-      }
-
-    ])
-
-
+const AmountByCategory = asyncHandler(async(req,res)=>{
+   const totalByCat = await Expense.aggregate([
+      {$match:{userId: req.user._id}},
+      {$group:{_id: "$category", totalCat: {$sum: "$amount"}}}
+   ])
+   
+   res.status(200).json(
+      new ApiResponse(200, "Amount by category retrieved successfully", totalByCat)
+   )
 })
+
+const sumAmount = asyncHandler(async(req,res)=>{
+   const totalAmt = await Expense.aggregate([
+      {$match:{userId: req.user._id}},
+      {$group:{_id: null, totalAmt: {$sum: "$amount"}}}
+   ])
+   
+   res.status(200).json(
+      new ApiResponse(200, "Total amount retrieved successfully", totalAmt)
+   )
+})
+
+const monthlyAvg = asyncHandler(async(req,res)=>{
+   const monthAvg = await Expense.aggregate([
+      {$match:{userId: req.user._id}},
+      {$group:{
+         _id: {year:{$year:"$date"}, month:{$month:"$date"}},
+         avgAmt:{$avg:"$amount"}
+      }},
+      {$sort: {"_id.year": 1, "_id.month": 1}}
+   ])
+   
+   res.status(200).json(
+      new ApiResponse(200, "Monthly average retrieved successfully", monthAvg)
+   )
+})
+
+const getDatedExpense = asyncHandler(async(req,res)=>{
+   const {startDate, endDate, category, sortOrder} = req.query;
+   const start = new Date(startDate);
+   const end = new Date(endDate);
+   const sortDirection = sortOrder === "asc" ? 1 : -1;
+
+   const specificExp = await Expense.aggregate([
+      {$match:{
+         userId: req.user._id,
+         category: category,
+         date: {$gte: start, $lte: end}
+      }},
+      {$group:{
+         _id: "$category",
+         totalAmount:{$sum:"$amount"}
+      }},
+      {$sort:{"date": sortDirection}}
+   ])
+   
+   res.status(200).json(
+      new ApiResponse(200, "Dated expenses retrieved successfully", specificExp)
+   )
+})
+
+const searchExpense = asyncHandler(async(req,res)=>{
+   const {search} = req.body
+   const regex = new RegExp(search, "i")
+   
+   const searchExp = await Expense.aggregate([
+      {$match:{
+         userId: req.user._id,
+         category: {$regex: regex}
+      }},
+      {$group:{
+         _id: "$category",
+         totalAmount: {$sum:"$amount"},
+         count: {$sum: 1},
+         latestDate: {$max: "$date"}
+      }},
+      {$sort:{latestDate:-1}},
+      {$project:{
+         _id: 0,
+         category: "$_id",
+         totalAmount: 1,
+         latestDate: 1,
+         count: 1
+      }}
+   ])
+   
+   res.status(200).json(
+      new ApiResponse(200, "Search results retrieved successfully", searchExp)
+   )
+})
+
+const deleteExpense = asyncHandler(async(req,res)=>{
+   const expense = await Expense.findById(req.params.id);
+   if(!expense) throw new ApiError(404, "Expense not found!");
+   
+   await Expense.findByIdAndDelete(req.params.id);
+   
+   res.status(200).json(
+      new ApiResponse(200, "Expense deleted successfully", null)
+   )
+})
+
+const updateExpense =asyncHandler(async(req,res)=>{
+
+const {amount, category, description, date}= req.body
+
+const expense = await Expense.findById(req.params.id);
+if(!expense){
+  throw new ApiError(404, "Expense not found")
+}
+
+//verify that the expense belongs to the user
+if (expense.userId.toString()!== req.user._id.toString()){
+  throw new ApiError(403, "Unauthorized to update this expense!")
+}
+const updatedExpense = await Expense.findByIdAndUpdate(
+  req.params.id, {
+    $set:{
+      amount:amount||expense.amount,
+      category: category||expense.category,
+      description: description || expense.description,
+      date: date||expense.date
+    }
+  
+},{new: true, runValidators: true})//options
+res.status(200).json(
+  new ApiResponse(200, "Expense updated successfully", updatedExpense)
+); 
+})
+
+export {
+  addExpenseToDb,
+  getAllExpenses,
+  AmountByCategory,
+  sumAmount,
+  monthlyAvg,
+  getDatedExpense,
+  searchExpense,
+  deleteExpense,
+  updateExpense
+}
