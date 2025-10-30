@@ -40,11 +40,13 @@ const getAllExpenses = asyncHandler(async(req,res)=>{
    } catch (error) {
     throw new ApiError(400,"Something went wrong while sorting!")
    }
+   
 })
 
 const getCalcs= asyncHandler(async(req,res)=>{
 
 //return total expenses, average expense, daily average, highest, ...
+
    const totalByCat=  await Expense.aggregate
 ([  {$match:{userId: req.user._id}},
     {$group:{_id: "category", totalCat: { $sum: "$amount"}},}
@@ -63,7 +65,62 @@ const monthAvg= await Expense.aggregate([
     { $sort: { "_id.year": 1, "_id.month": 1 } }
 ])
 
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  const sortDirection = sortOrder === "asc" ? 1 : -1;
 
+  const specificExp= await Expense.aggregate([
+    {$match:{
+        userId: req.user._id,
+        category:category,
+        date: { $gte: start, $lte: end }
+     }
+
+    },
+     { $group:{
+        _id:"category",
+        totalAmount:{$sum:"$amount"}
+     }
+
+     },
+
+     { sort:{"date":sortDirection} }
+    
+
+    ])
+
+
+    const {search}= req.body
+    const regex = new RegExp(search,  "i") //i is case sensitive so reverse it using js method
+    const searchExp= await Expense.aggregate([
+      { 
+        $match:{
+        userId:req.user._id,
+        category:{$regex:regex}
+      }
+      },
+
+      {
+        $group:{
+
+            _id: $category,
+            totalAmount:{$sum:"$amount"},
+            count: {$sum: 1},
+            latestDate:{$max: "$date"},
+        }
+      },
+      {sort:{latestDate:-1}},
+      {
+        $project:{
+            _id:0,
+            category: "_id",
+            totalAmount:1,
+            latestDate:1,
+            count:1
+        }
+      }
+
+    ])
 
 
 })
