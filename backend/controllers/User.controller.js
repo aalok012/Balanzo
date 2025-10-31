@@ -106,27 +106,31 @@ const registerUser = asyncHandler (async(req, res)=> {
        const isPasswordValid= await user.isPasswordCorrect(password);
 
        if(!isPasswordValid){
-        throw new ApiError(404, "Theee password you entered is incorrect!")
-
+        throw new ApiError(404, "The password you entered is incorrect!")
        }
 
-       const {accessToken, refreshToken}= await generateAccessandRefreshToken(user._id) //method to get access token and refresh token      
+       const {accessToken, refreshToken} = await generateAccessandRefreshToken(user._id)
         
-       //we have got an unwanted fields like password and token and we are returning to the user so we have get one more query or  change the user 
        const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
 
-       const options ={
+       const options = {
         httpOnly: true,
         secure: true
        }
 
-
-
-       return res.status(202)
+       return res.status(200)  // Changed 202 to 200
        .cookie("accessToken", accessToken, options)
-       .cookie("refreshToken",refreshToken, options)
-       .json (
-        new ApiResponse(200, user, "User Logged in successfully")
+       .cookie("refreshToken", refreshToken, options)
+       .json(
+        new ApiResponse(
+            200, 
+            {
+                user: loggedInUser,
+                accessToken,
+                refreshToken
+            },
+            "User logged in successfully"
+        )
        )
 })
 

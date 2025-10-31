@@ -1,37 +1,31 @@
-import Expense from "../models/Expense.models";
-import ApiError from "../utils/ApiError";
-import ApiResponse from "../utils/ApiResponse";
-import { asyncHandler } from "../utils/asyncHandler";
-import asyncHandler from 'express-async-handler';
+import Expense from "../models/Expense.models.js"; // Add .js extension
+import ApiError  from "../utils/ApiError.js"; // Add .js and check if it's default or named export
+import  ApiResponse  from "../utils/ApiResponse.js"; // Add .js and check if it's default or named export
+import { asyncHandler } from "../utils/asyncHandler.js"; // Remove the other import
 
-const addExpenseToDb = asyncHandler(async(req,res)=>{
-    const {amount,description,date,category} = req.body;
+const addExpenseToDb = asyncHandler(async(req, res) => {
+    const { amount, description, date, category } = req.body;
      
-    if(!(amount&&description&&date&&category)){
-        throw new ApiError(401,"Please fill up the required fields!")
+    if (!(amount && description && date && category)) {
+        throw new ApiError(400, "Please fill up the required fields!"); // Changed 401 to 400
     }
-    //create an object 
-    try {
-        const expense = await Expense.create({
-            user:req.user._id, // link to the logged-in user
-            amount, 
-            description, 
-            date,
-            category
-        })
-        
-        return res.status(201).json(
-            new ApiResponse(201, "Expense successfully saved!", expense)
-          );
-        
-    } catch (error) {
-        throw new ApiError(400, error?.message||"Something went wrong while saving the data!")
-    }
-})
+    
+    const expense = await Expense.create({
+        user: req.user._id, // Changed 'user' to 'user' to match your other functions
+        amount, 
+        description, 
+        date,
+        category
+    });
+    
+    return res.status(201).json(
+        new ApiResponse(201, "Expense successfully saved!", expense)
+    );
+});
 
 const getAllExpenses = asyncHandler(async(req,res)=>{
    const sortBy = req.query.sort === "category" ? {category:1} : {date:-1}
-   const expenses = await Expense.find({ user: req.user._id }).sort(sortBy);
+   const expenses = await Expense.find({ user: req.user._id }).sort(sortBy); // Change 'user' to 'user'
    
    res.status(200).json(
       new ApiResponse(200, "Successfully sorted", expenses)
@@ -40,7 +34,7 @@ const getAllExpenses = asyncHandler(async(req,res)=>{
 
 const AmountByCategory = asyncHandler(async(req,res)=>{
    const totalByCat = await Expense.aggregate([
-      {$match:{userId: req.user._id}},
+      {$match:{user: req.user._id}},
       {$group:{_id: "$category", totalCat: {$sum: "$amount"}}}
    ])
    
@@ -51,7 +45,7 @@ const AmountByCategory = asyncHandler(async(req,res)=>{
 
 const sumAmount = asyncHandler(async(req,res)=>{
    const totalAmt = await Expense.aggregate([
-      {$match:{userId: req.user._id}},
+      {$match:{user: req.user._id}}, // Change user to user
       {$group:{_id: null, totalAmt: {$sum: "$amount"}}}
    ])
    
@@ -62,7 +56,7 @@ const sumAmount = asyncHandler(async(req,res)=>{
 
 const monthlyAvg = asyncHandler(async(req,res)=>{
    const monthAvg = await Expense.aggregate([
-      {$match:{userId: req.user._id}},
+      {$match:{user: req.user._id}}, // Change user to user
       {$group:{
          _id: {year:{$year:"$date"}, month:{$month:"$date"}},
          avgAmt:{$avg:"$amount"}
@@ -83,7 +77,7 @@ const getDatedExpense = asyncHandler(async(req,res)=>{
 
    const specificExp = await Expense.aggregate([
       {$match:{
-         userId: req.user._id,
+         user: req.user._id,
          category: category,
          date: {$gte: start, $lte: end}
       }},
@@ -105,7 +99,7 @@ const searchExpense = asyncHandler(async(req,res)=>{
    
    const searchExp = await Expense.aggregate([
       {$match:{
-         userId: req.user._id,
+         user: req.user._id,
          category: {$regex: regex}
       }},
       {$group:{
@@ -150,7 +144,7 @@ if(!expense){
 }
 
 //verify that the expense belongs to the user
-if (expense.userId.toString()!== req.user._id.toString()){
+if (expense.user.toString()!== req.user._id.toString()){
   throw new ApiError(403, "Unauthorized to update this expense!")
 }
 const updatedExpense = await Expense.findByIdAndUpdate(
