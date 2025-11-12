@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* general setting for the whole app */
+
+:root{
+    scroll-behavior: smooth;
+    --primary: #5361e3;
+    --second: #8893f5;
+    --bgColor: #eaeaea;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Open Sans', sans-serif;
+    color: #444444;
+    background-color: var(--bgColor); /* #reusing the value above; */
+
+}
+
+a{
+    color: var(--primary);
+    text-decoration: none;
+    cursor: pointer;
+}
+a:hover{
+    color: var(--second);
+    text-decoration: underline;
+}   
+
+h1, h2, h3, h4, h5, h6{
+    font-family: 'Nunito', sans-serif;
+}
