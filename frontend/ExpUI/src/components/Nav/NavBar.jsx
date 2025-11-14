@@ -1,5 +1,5 @@
 import React from 'react'
-import './Navbar.css'
+import './NavBar.css'
 import NavAvatar from './NavAvatar.jsx'
 import NavMessage from './NavMessage.jsx'
 import NavNotice from './NavNotice.jsx'
