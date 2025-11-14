@@ -7,7 +7,6 @@ import { TbListDetails } from "react-icons/tb";
 const Route = ({ Icon, selected, title, children }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const hasChildren = React.Children.count(children) > 0;
-
   return (
     <div>
       <div
