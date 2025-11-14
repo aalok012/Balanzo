@@ -10,7 +10,7 @@ const Route = ({ Icon, selected, title, children }) => {
   return (
     <div>
       <div
-        className={`flex items-center justify-start gap-2 w-full rounded px-2 py-1.5 text-sm transition-[box-shadow,_background-color,_color] cursor-pointer ${
+        className={`flex items-center justify-start gap-2 w-full rounded px-2 py-1.5 text-sm transition-[box-shadow,_background-color, _color] cursor-pointer ${
           selected
             ? "bg-white text-stone-950 shadow"
             : "hover:bg-stone-500 bg-transparent shadow-none"
