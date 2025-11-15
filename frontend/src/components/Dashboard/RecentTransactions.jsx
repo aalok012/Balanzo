@@ -1,6 +1,16 @@
 import React from "react";
 import { FiDollarSign } from "react-icons/fi";
 
+const {data: recentTransactions, isLoading, error} = useQuery({
+  queryKey: ["recentTransactions"],
+  queryFn: async () => {
+    const res = await api.get("/api/v1/getAllExpenses");
+    return res.data.data; // array of recent transactions
+  }
+});
+
+
+
 export const RecentTransactions = () => {
     return (
         <div className="col-span-12 p-4 rounded border border-stone-300 ">
@@ -17,18 +27,17 @@ export const RecentTransactions = () => {
             <table className="w-full table-auto">
                 <TableHead />
                 <tbody>
-                    <TableRow />
-                    <TableRow date="2025-11-18" description="Grocery Shopping" category="Food" amount="-$150.00" />
-                    <TableRow date="2025-11-17" description="Salary" category="Income" amount="+$3,000.00" />
-                    <TableRow date="2025-11-16" description="Electricity Bill" category="Utilities" amount="-$75.00" />
-                    <TableRow date="2025-11-15" description="Dinner at Restaurant" category="Food" amount="-$60.00" />
-                    <TableRow date="2025-11-14" description="Gym Membership" category="Health" amount="-$45.00" />
-                    <TableRow date="2025-11-18" description="Grocery Shopping" category="Food" amount="-$150.00" />
-                    <TableRow date="2025-11-17" description="Salary" category="Income" amount="+$3,000.00" />
-                    <TableRow date="2025-11-16" description="Electricity Bill" category="Utilities" amount="-$75.00" />
-                    <TableRow date="2025-11-15" description="Dinner at Restaurant" category="Food" amount="-$60.00" />
-                    <TableRow date="2025-11-14" description="Gym Membership" category="Health" amount="-$45.00" />
-
+                   <tbody>
+                            {recentTransactions?.map((tx) => (
+                                <TableRow
+                                key={tx._id}
+                                date={tx.date}
+                                description={tx.description}
+                                category={tx.category}
+                                amount={tx.amount}
+                                />
+                            ))}
+                            </tbody>
                 </tbody>
             </table>
 

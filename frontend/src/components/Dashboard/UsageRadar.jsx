@@ -2,41 +2,50 @@ import React from "react";
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from 'recharts';
 import { FiEye } from "react-icons/fi";
 
-const data = [
+
+const { data, isLoading, error } = useQuery({
+    queryKey: ["expenseByCategory"],
+    queryFn: async () => {
+        const res = await api.get("/api/v1/AmountByCategory");
+        return res.data.data; // array of expenses by category
+    }
+});
+
+const datas = [
     {
-        subject: 'Food',
-        A: 120,
-        B: 110,
+        subject: data?.[0]?._id || "Food",
+        A: data?.[0]?.totalCat || 0,
+        
         fullMark: 150,
     },
     {
-        subject: 'House',
-        A: 98,
-        B: 130,
+        subject: data?.[0]?._id || 'Rent',
+        A: data?.[0]?.totalCat || 0,
+
         fullMark: 150,
     },
     {
-        subject: 'Maintainance',
-        A: 86,
-        B: 130,
+        subject: data?.[0]?._id || 'Shopping',
+        A: data?.[0]?.totalCat || 0,
+
         fullMark: 150,
     },
     {
-        subject: 'gas',
-        A: 99,
-        B: 100,
+        subject: data?.[0]?._id || 'Transport',
+        A: data?.[0]?.totalCat || 0,
+
         fullMark: 150,
     },
     {
-        subject: 'Entertainment',
-        A: 85,
-        B: 90,
+        subject: data?.[0]?._id || 'Entertainment',
+        A: data?.[0]?.totalCat || 0,
+
         fullMark: 150,
     },
     {
-        subject: 'Utilities',
-        A: 65,
-        B: 85,
+        subject: data?.[0]?._id || 'Others',
+        A: data?.[0]?.totalCat || 0,
+
         fullMark: 150,
     },
 ];
@@ -54,7 +63,7 @@ export const UsageRadar = () => {
                     style={{ width: '100%', height: '100%', maxWidth: '500px', maxHeight: '80vh', aspectRatio: 1 }}
                     responsive
                     outerRadius="80%"
-                    data={data}
+                    data={datas}
                     margin={{
                         top: 20,
                         left: 20,

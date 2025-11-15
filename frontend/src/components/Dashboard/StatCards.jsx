@@ -1,27 +1,59 @@
 import React from "react";
 import { FiTrendingUp, FiTrendingDown } from "react-icons/fi";
 
+const { data: totalData, isLoading: totalLoading, error: totalError } = useQuery({
+  queryKey: ["totalexpenses"],
+  queryFn: async () => {
+    const res = await api.get("/api/v1/expenses/sumAmount");
+    return res.json();
+  }
+});
+
+const totalExpenses = data?.data[0] || 0;
+
+
+
+
+
+const { data: monthlyData, isLoading: monthlyLoading, error: monthlyError} = useQuery({
+  queryKey: ["monthlyAvg"],
+  queryFn: async () => {
+    const res = await api.get("/api/v1/expenses/monthlyAvg");
+    return res.json();
+  }
+});
+
+const mostRecentMonth = monthlyData[monthlyData.length - 1];
+const avgAmt = mostRecentMonth?.avgAmt || 0;
+const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const dateString = mostRecentMonth 
+  ? `${monthNames[mostRecentMonth._id.month - 1]} ${mostRecentMonth._id.year}`
+  : 'N/A';
+
+
+
 
 export const StatCards = () => { 
     return (
         <>
             <Card 
                 title="Total Expenses"
-                value="$5,024"
+                value={totalExpenses?.totalAmt || 0}
                 pillText="+12.5%"
                 trend="up"
-                period="From Aug 1 to May 1"
+                period="From all time"
             />
             <Card 
             title="Monthly Expenses"
-                value="$2,024"
+                value={avgAmt}
                 pillText="+10.5%"
                 trend="up"
-                period="From Aug 1 to May 1"/>
+                period={dateString}    
+                 />
             <Card
             title="Total Income"
-                value="$25,024"
-                pillText="+10.5%"
+                value="$5,000"
+                pillText="+0.5%"
                 trend="up"
                 period="Previous 30 days"/>
         </>
