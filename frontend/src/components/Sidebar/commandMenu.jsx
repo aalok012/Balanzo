@@ -21,18 +21,18 @@ export const CommandMenu = ({
 
   return (
     <Command.Dialog open={open} onOpenChange={setOpen} label="Global Command Menu"
-    className='fixed inset-0 bg-stone-950/50'
-    onClick={()=>setOpen(false) }>
-      <div onClick= {(e) => e.stopPropagation()}
-      className='bg-white rounded-lg shadow-xl border-stone-300 border overflow-hidden w-full max-w-lg mx-auto mt-12'>
-      <Command.Input
-      placeholder='What do you mean?'
-      className='relative border-b border-stone-300 p-4 text=lg w-full placeholder:text-stone-400 focus:outline-none'/>
-      <Command.List>
-        <Command.Empty>No results found.</Command.Empty>
-        //for the searching,.....In future we can add dynamic data here 
-      
-      </Command.List>
+      className='fixed inset-0 bg-stone-950/50'
+      onClick={() => setOpen(false)}>
+      <div onClick={(e) => e.stopPropagation()}
+        className='bg-white rounded-lg shadow-xl border-stone-300 border overflow-hidden w-full max-w-lg mx-auto mt-12'>
+        <Command.Input
+          placeholder='What do you mean?'
+          className='relative border-b border-stone-300 p-4 text=lg w-full placeholder:text-stone-400 focus:outline-none' />
+        <Command.List>
+          <Command.Empty>No results found.</Command.Empty>
+        //for the searching,.....In future we can add dynamic data here
+
+        </Command.List>
       </div>
     </Command.Dialog>
   )
