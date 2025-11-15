@@ -2,9 +2,12 @@ import React from "react";
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from 'recharts';
 import { FiEye } from "react-icons/fi";
 import {useQuery} from "@tanstack/react-query";
-import api from "../../api/api.jsx";
+import api from "../../axiosApi.js";      // or "../../axiosApi"
 
 
+
+export const UsageRadar = () => {
+    
 const { data, isLoading, error } = useQuery({
     queryKey: ["expenseByCategory"],
     queryFn: async () => {
@@ -52,7 +55,6 @@ const datas = [
     },
 ];
 
-export const UsageRadar = () => {
     return (
         <div className="col-span-4 overflow-hidden rounded border border-stone-300 ">
             <div className="p-4">

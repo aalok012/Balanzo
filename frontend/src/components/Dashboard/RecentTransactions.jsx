@@ -1,7 +1,13 @@
 import React from "react";
 import { FiDollarSign } from "react-icons/fi";
 import {useQuery} from "@tanstack/react-query";
-import api from "../../api/api.jsx";
+import api from "../../axiosApi.js";      // or "../../axiosApi"
+
+
+
+export const RecentTransactions = () => {
+
+
 
 const {data: recentTransactions, isLoading, error} = useQuery({
   queryKey: ["recentTransactions"],
@@ -12,8 +18,6 @@ const {data: recentTransactions, isLoading, error} = useQuery({
 });
 
 
-
-export const RecentTransactions = () => {
     return (
         <div className="col-span-12 p-4 rounded border border-stone-300 ">
             <div className="mb-4 flex items-center justify-between">

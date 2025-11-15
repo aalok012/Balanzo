@@ -1,20 +1,19 @@
 import React from "react";
 import { FiTrendingUp, FiTrendingDown } from "react-icons/fi";
 import {useQuery} from "@tanstack/react-query";
-import api from "../../api/api.jsx";
+import api from "../../axiosApi.js";      // or "../../axiosApi"
 
-const { data: totalData, isLoading: totalLoading, error: totalError } = useQuery({
+
+
+export const StatCards = () => { 
+
+    const { data: totalData, isLoading: totalLoading, error: totalError } = useQuery({
   queryKey: ["totalexpenses"],
   queryFn: async () => {
     const res = await api.get("/api/v1/expenses/sumAmount");
     return res.json();
   }
 });
-
-const totalExpenses = data?.data[0] || 0;
-
-
-
 
 
 const { data: monthlyData, isLoading: monthlyLoading, error: monthlyError} = useQuery({
@@ -25,7 +24,7 @@ const { data: monthlyData, isLoading: monthlyLoading, error: monthlyError} = use
   }
 });
 
-const mostRecentMonth = monthlyData[monthlyData.length - 1];
+const mostRecentMonth = monthlyData?.[monthlyData.length - 1] ?? null;
 const avgAmt = mostRecentMonth?.avgAmt || 0;
 const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const dateString = mostRecentMonth 
@@ -34,13 +33,12 @@ const dateString = mostRecentMonth
 
 
 
-
-export const StatCards = () => { 
     return (
         <>
             <Card 
                 title="Total Expenses"
-                value={totalExpenses?.totalAmt || 0}
+                value={totalData?.data?.[0]?.totalAmt ?? 0}
+
                 pillText="+12.5%"
                 trend="up"
                 period="From all time"
