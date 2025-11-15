@@ -1,5 +1,7 @@
 import React from "react";
 import { FiDollarSign } from "react-icons/fi";
+import {useQuery} from "@tanstack/react-query";
+import api from "../../api/api.jsx";
 
 const {data: recentTransactions, isLoading, error} = useQuery({
   queryKey: ["recentTransactions"],

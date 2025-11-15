@@ -1,6 +1,8 @@
 import React from "react";
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from 'recharts';
 import { FiEye } from "react-icons/fi";
+import {useQuery} from "@tanstack/react-query";
+import api from "../../api/api.jsx";
 
 
 const { data, isLoading, error } = useQuery({

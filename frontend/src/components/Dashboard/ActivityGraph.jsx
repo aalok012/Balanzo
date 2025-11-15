@@ -1,6 +1,8 @@
 import React from "react";
 import {FiUser} from "react-icons/fi";
 import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts';
+import { useQuery } from "@tanstack/react-query";
+import api from "../../api/api.jsx";
 
 const { data, isLoading, error } = useQuery({
   queryKey: ["monthlyAvg"],
@@ -11,7 +13,7 @@ const { data, isLoading, error } = useQuery({
 });
 const last7Months = data?.slice(-7);
 const incomeBase = 5000;
-const getIncomeForMonth = (base, monthIndex) => {
+let getIncomeForMonth = (base, monthIndex) => {
   // monthIndex starts from 0 → 7 months → 0 to 6
   return base * Math.pow(1.05, monthIndex);
 };
