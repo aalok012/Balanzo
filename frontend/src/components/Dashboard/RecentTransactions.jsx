@@ -1,7 +1,7 @@
 import React from "react";
 import { FiDollarSign } from "react-icons/fi";
-import {useQuery} from "@tanstack/react-query";
-import api from "../../axiosApi.js";      // or "../../axiosApi"
+import { useQuery } from "@tanstack/react-query";
+import api from "../../axiosApi.jsx";      // or "../../axiosApi"
 
 
 
@@ -9,13 +9,13 @@ export const RecentTransactions = () => {
 
 
 
-const {data: recentTransactions, isLoading, error} = useQuery({
-  queryKey: ["recentTransactions"],
-  queryFn: async () => {
-    const res = await api.get("v1/expenses/getAllExpenses");
-    return res.data.data; // array of recent transactions
-  }
-});
+    const { data: recentTransactions, isLoading, error } = useQuery({
+        queryKey: ["recentTransactions"],
+        queryFn: async () => {
+            const res = await api.get("/v1/expenses/getAllExpenses");
+            return res.data.data; // array of recent transactions
+        }
+    });
 
 
     return (
@@ -32,19 +32,17 @@ const {data: recentTransactions, isLoading, error} = useQuery({
 
             <table className="w-full table-auto">
                 <TableHead />
-                <tbody>
-                   <tr>
-                            {recentTransactions?.map((tx) => (
-                                <TableRow
+
+                        {recentTransactions?.map((tx) => (
+                            <TableRow
                                 key={tx._id}
                                 date={tx.date}
                                 description={tx.description}
                                 category={tx.category}
                                 amount={tx.amount}
-                                />
-                            ))}
-                            </tr>
-                </tbody>
+                            />
+                        ))} 
+
             </table>
 
         </div>
@@ -59,7 +57,7 @@ const TableHead = () => {
                 <th className="text-start pb-2 pt-1">Date</th>
                 <th className="text-start pb-2 pt-1">Description</th>
                 <th className="text-start pb-2 pt-1">Category</th>
-                <th className="text-end pb-2 pt-1">Amount</th>
+                <th className="text-end pb-2 pt-1">Amount($)</th>
             </tr>
         </thead>
     );

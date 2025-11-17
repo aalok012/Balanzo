@@ -1,6 +1,34 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import api from "../axiosApi";
 const FormRegistration = () => {
   const [darkMode, setDarkMode] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [fullname, setFullname] = useState("");
+  const [DOB, setDOB] = useState("");
+  const navigate = useNavigate();
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      await api.post("/v1/users/register", {
+        username,
+        password,
+        email,
+        fullname,
+        DOB,
+      });
+      navigate("/login");
+    } catch (error) {
+      console.error("Registration failed", error);
+      alert("Registration failed. Please try again.");
+    }
+  };
+
+
+
   return (
     <div className="flex flex-col justify-center items-center w-full h-[100vh] bg-[#282D2D] px-5">
       <div className=" flex flex-col items-end justify-start  overflow-hidden mb-2 xl:max-w-3xl w-full">
@@ -35,7 +63,10 @@ const FormRegistration = () => {
           Register for a free account
         </h1>
         <div className="w-full mt-8">
-          <div className="mx-auto max-w-xs sm:max-w-md md:max-w-lg flex flex-col gap-4">
+          <form
+            onSubmit={handleRegister}
+            className="mx-auto max-w-xs sm:max-w-md md:max-w-lg flex flex-col gap-4"
+          >
             <div className="flex flex-col sm:flex-row gap-3">
               <input
                 className={`w-full px-5 py-3 rounded-lg font-medium border-2 border-transparent placeholder-gray-500 text-sm focus:outline-none  focus:border-2  focus:outline ${
@@ -44,17 +75,25 @@ const FormRegistration = () => {
                     : "bg-gray-100 text-black focus:border-black"
                 }`}
                 type="text"
-                placeholder="Your first name"
+                required
+                value={fullname}
+                placeholder="Your Full name"
+                onChange={e=>setFullname(e.target.value)}
               />
+
               <input
                 className={`w-full px-5 py-3 rounded-lg  font-medium border-2 border-transparent placeholder-gray-500 text-sm focus:outline-none focus:border-2  focus:outline ${
                   darkMode
                     ? "bg-[#302E30] text-white focus:border-white"
                     : "bg-gray-100 text-black focus:border-black"
                 }`}
-                type="text"
-                placeholder="Your last name"
+                type="email"
+                required
+                value={email}
+                placeholder="Your email adddress"
+                onChange={e=>setEmail(e.target.value)}
               />
+
             </div>
             <input
               className={`w-full px-5 py-3 rounded-lg  font-medium border-2 border-transparent placeholder-gray-500 text-sm focus:outline-none focus:border-2  focus:outline ${
@@ -62,17 +101,23 @@ const FormRegistration = () => {
                   ? "bg-[#302E30] text-white focus:border-white"
                   : "bg-gray-100 text-black focus:border-black"
               }`}
-              type="email"
-              placeholder="Enter your email"
+              type="text"
+              required
+              value={username}
+              placeholder="Your username"
+              onChange={(e) => setUsername(e.target.value)}
             />
             <input
               className={`w-full px-5 py-3 rounded-lg  font-medium border-2 border-transparent placeholder-gray-500 text-sm focus:outline-none focus:border-2  focus:outline ${
                 darkMode
-                  ? "bg-[#302E30] text-white focus:border-white"
+                  ? "bg-[#100a10] text-white focus:border-white"
                   : "bg-gray-100 text-black focus:border-black"
               }`}
-              type="tel"
-              placeholder="Enter your phone"
+              type="date"
+              required
+              value={DOB}
+              placeholder="Your Date of Birth"
+              onChange={(e) => setDOB(e.target.value)}
             />
             <input
               className={`w-full px-5 py-3 rounded-lg  font-medium border-2 border-transparent placeholder-gray-500 text-sm focus:outline-none focus:border-2  focus:outline ${
@@ -81,9 +126,15 @@ const FormRegistration = () => {
                   : "bg-gray-100 text-black focus:border-black"
               }`}
               type="password"
-              placeholder="Password"
+              required
+              value={password}
+              placeholder="password"
+              onChange={(e) => setPassword(e.target.value)}
             />
-            <button className="mt-5 tracking-wide font-semibold bg-[#E9522C] text-gray-100 w-full py-4 rounded-lg hover:bg-[#E9522C]/90 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+            <button
+              type="submit"
+              className="mt-5 tracking-wide font-semibold bg-[#E9522C] text-gray-100 w-full py-4 rounded-lg hover:bg-[#E9522C]/90 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+            >
               <svg
                 className="w-6 h-6 -ml-2"
                 fill="none"
@@ -92,6 +143,7 @@ const FormRegistration = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
+
                 <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
                 <circle cx="8.5" cy="7" r="4" />
                 <path d="M20 8v6M23 11h-6" />
@@ -100,11 +152,11 @@ const FormRegistration = () => {
             </button>
             <p className="mt-6 text-xs text-gray-600 text-center">
               Already have an account?{" "}
-              <a href="">
-                <span className="text-[#E9522C] font-semibold">Login</span>
-              </a>
+            <Link to="/login">
+              <span className="text-[#E9522C] font-semibold">Login</span>
+            </Link>
             </p>
-          </div>
+          </form>
         </div>
       </div>
     </div>

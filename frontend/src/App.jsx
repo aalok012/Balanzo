@@ -1,11 +1,11 @@
 import React from 'react';
-import {Dashboard} from './components/Dashboard/Dashboard.jsx';
-import {Sidebar} from './components/Sidebar/Sidebar.jsx'
+import { Dashboard } from './components/Dashboard/Dashboard.jsx';
 import axios from 'axios';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/Login.jsx';
 import Register from './components/Register.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
+import DashboardLayout from './components/Dashboard/DasboardLayout.jsx';
 
 export default function App() {
   return (
@@ -16,16 +16,17 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* Protected Dashboard */}
-        <Route 
-          path="/Dashboard" 
+        {/* Protected Dashboard with sidebar layout */}
+        <Route
+          path="/Dashboard"
           element={
             <ProtectedRoute>
-                <Dashboard />
-             
+              <DashboardLayout />
             </ProtectedRoute>
           }
-        />
+        >
+          <Route index element={<Dashboard />} />
+        </Route>
 
         {/* Default → redirect to dashboard or login */}
         <Route path="*" element={<Navigate to="/login" />} />

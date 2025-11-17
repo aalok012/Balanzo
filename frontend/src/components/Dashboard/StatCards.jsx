@@ -1,35 +1,39 @@
 import React from "react";
 import { FiTrendingUp, FiTrendingDown } from "react-icons/fi";
-import {useQuery} from "@tanstack/react-query";
-import api from "../../axiosApi.js";      // or "../../axiosApi"
+import { useQuery } from "@tanstack/react-query";
+import api from "../../axiosApi.jsx";
 
+export const StatCards = () => {
+  const {
+    data: totalData,
+    isLoading: totalLoading,
+    error: totalError,
+  } = useQuery({
+    queryKey: ["totalexpenses"],
+    queryFn: async () => {
+      const res = await api.get("/v1/expenses/sumAmount");
+      return res.data.data; // array: [{ _id: null, totalAmt }]
+    },
+  });
 
-
-export const StatCards = () => { 
-
-    const { data: totalData, isLoading: totalLoading, error: totalError } = useQuery({
-  queryKey: ["totalexpenses"],
-  queryFn: async () => {
-    const res = await api.get("v1/expenses/sumAmount");
-    return res.json();
-  }
-});
-
-
-const { data: monthlyData, isLoading: monthlyLoading, error: monthlyError} = useQuery({
-  queryKey: ["monthlyAvg"],
-  queryFn: async () => {
-    const res = await api.get("/api/v1/expenses/monthlyAvg");
-    return res.json();
-  }
-});
+  const {
+    data: monthlyData,
+    isLoading: monthlyLoading,
+    error: monthlyError,
+  } = useQuery({
+    queryKey: ["monthlyAvg"],
+    queryFn: async () => {
+      const res = await api.get("/v1/expenses/monthlyAvg");
+      return res.data.data; // array of { _id, avgAmt }
+    },
+  });
 
 const mostRecentMonth = monthlyData?.[monthlyData.length - 1] ?? null;
 const avgAmt = mostRecentMonth?.avgAmt || 0;
 const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const dateString = mostRecentMonth 
   ? `${monthNames[mostRecentMonth._id.month - 1]} ${mostRecentMonth._id.year}`
-  : 'N/A';
+  : "N/A";
 
 
 
@@ -37,8 +41,7 @@ const dateString = mostRecentMonth
         <>
             <Card 
                 title="Total Expenses"
-                value={totalData?.data?.[0]?.totalAmt ?? 0}
-
+                value={totalData?.[0]?.totalAmt ?? 0}
                 pillText="+12.5%"
                 trend="up"
                 period="From all time"

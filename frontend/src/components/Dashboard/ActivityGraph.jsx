@@ -2,7 +2,7 @@ import React from "react";
 import {FiUser} from "react-icons/fi";
 import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts';
 import { useQuery } from "@tanstack/react-query";
-import api from "../../axiosApi.js";      // or "../../axiosApi"
+import api from "../../axiosApi.jsx";      // or "../../axiosApi"
 
 
 
@@ -13,7 +13,7 @@ export const ActivityGraph  = () => {
 const { data, isLoading, error } = useQuery({
   queryKey: ["monthlyAvg"],
   queryFn: async () => {
-    const res = await api.get("v1/expenses/monthlyAvg");
+    const res = await api.get("/v1/expenses/monthlyAvg");
     return res.data.data; // array of months
   }
 });

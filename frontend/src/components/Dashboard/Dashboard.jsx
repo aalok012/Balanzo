@@ -6,7 +6,7 @@ import {UsageRadar} from './UsageRadar.jsx';
 import {StatCards} from './StatCards.jsx';
 import {RecentTransactions} from './RecentTransactions.jsx';
 import {useQuery} from "@tanstack/react-query";
-import api from "../../axiosApi.js";      // or "../../axiosApi"
+import api from "../../axiosApi.jsx";      // or "../../axiosApi"
   
 
 

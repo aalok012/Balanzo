@@ -2,7 +2,7 @@ import React from "react";
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from 'recharts';
 import { FiEye } from "react-icons/fi";
 import {useQuery} from "@tanstack/react-query";
-import api from "../../axiosApi.js";      // or "../../axiosApi"
+import api from "../../axiosApi.jsx";      // or "../../axiosApi"
 
 
 
@@ -11,7 +11,7 @@ export const UsageRadar = () => {
 const { data, isLoading, error } = useQuery({
     queryKey: ["expenseByCategory"],
     queryFn: async () => {
-        const res = await api.get("v1/expenses/AmountByCategory");
+        const res = await api.get("/v1/expenses/AmountByCategory");
         return res.data.data; // array of expenses by category
     }
 });
@@ -24,32 +24,32 @@ const datas = [
         fullMark: 150,
     },
     {
-        subject: data?.[0]?._id || 'Rent',
-        A: data?.[0]?.totalCat || 0,
+        subject: data?.[1]?._id || 'Rent',
+        A: data?.[1]?.totalCat || 0,
 
         fullMark: 150,
     },
     {
-        subject: data?.[0]?._id || 'Shopping',
-        A: data?.[0]?.totalCat || 0,
+        subject: data?.[2]?._id || 'Shopping',
+        A: data?.[2]?.totalCat || 0,
 
         fullMark: 150,
     },
     {
-        subject: data?.[0]?._id || 'Transport',
-        A: data?.[0]?.totalCat || 0,
+        subject: data?.[3]?._id || 'Transport',
+        A: data?.[3]?.totalCat || 0,
 
         fullMark: 150,
     },
     {
-        subject: data?.[0]?._id || 'Entertainment',
-        A: data?.[0]?.totalCat || 0,
+        subject: data?.[4]?._id || 'Entertainment',
+        A: data?.[4]?.totalCat || 0,
 
         fullMark: 150,
     },
     {
-        subject: data?.[0]?._id || 'Others',
-        A: data?.[0]?.totalCat || 0,
+        subject: data?.[5]?._id || 'Others',
+        A: data?.[5]?.totalCat || 0,
 
         fullMark: 150,
     },

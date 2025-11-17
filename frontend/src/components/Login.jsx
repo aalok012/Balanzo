@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import api from "../axiosApi"; // adjust path
 
 const LoginWithGoogleButton = () => {
@@ -103,13 +103,13 @@ const LoginWithGoogleButton = () => {
             </div>
           </a>
           <div className="mt-4 flex items-center w-full text-center">
-            <a
-              href="#"
+            <Link
+              to="/register"
               className="text-xs text-gray-500 capitalize text-center w-full"
             >
               Don&apos;t have any account yet?
               <span className="text-blue-700"> Sign Up</span>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
