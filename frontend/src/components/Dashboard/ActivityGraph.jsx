@@ -13,7 +13,7 @@ export const ActivityGraph  = () => {
 const { data, isLoading, error } = useQuery({
   queryKey: ["monthlyAvg"],
   queryFn: async () => {
-    const res = await api.get("/api/v1/monthlyAvg");
+    const res = await api.get("v1/expenses/monthlyAvg");
     return res.data.data; // array of months
   }
 });

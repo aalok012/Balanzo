@@ -11,7 +11,7 @@ export const UsageRadar = () => {
 const { data, isLoading, error } = useQuery({
     queryKey: ["expenseByCategory"],
     queryFn: async () => {
-        const res = await api.get("/api/v1/AmountByCategory");
+        const res = await api.get("v1/expenses/AmountByCategory");
         return res.data.data; // array of expenses by category
     }
 });

@@ -10,7 +10,7 @@ export const StatCards = () => {
     const { data: totalData, isLoading: totalLoading, error: totalError } = useQuery({
   queryKey: ["totalexpenses"],
   queryFn: async () => {
-    const res = await api.get("/api/v1/expenses/sumAmount");
+    const res = await api.get("v1/expenses/sumAmount");
     return res.json();
   }
 });

@@ -12,7 +12,7 @@ export const RecentTransactions = () => {
 const {data: recentTransactions, isLoading, error} = useQuery({
   queryKey: ["recentTransactions"],
   queryFn: async () => {
-    const res = await api.get("/api/v1/getAllExpenses");
+    const res = await api.get("v1/expenses/getAllExpenses");
     return res.data.data; // array of recent transactions
   }
 });
@@ -33,7 +33,7 @@ const {data: recentTransactions, isLoading, error} = useQuery({
             <table className="w-full table-auto">
                 <TableHead />
                 <tbody>
-                   <tbody>
+                   <tr>
                             {recentTransactions?.map((tx) => (
                                 <TableRow
                                 key={tx._id}
@@ -43,7 +43,7 @@ const {data: recentTransactions, isLoading, error} = useQuery({
                                 amount={tx.amount}
                                 />
                             ))}
-                            </tbody>
+                            </tr>
                 </tbody>
             </table>
 
