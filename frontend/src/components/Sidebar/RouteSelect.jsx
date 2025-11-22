@@ -1,57 +1,76 @@
 import React from "react";
-import { FiHome, FiTrendingDown, FiShoppingCart, FiActivity } from "react-icons/fi";
+import { useNavigate, useLocation } from "react-router-dom";
+import { FiHome, FiShoppingCart, FiActivity } from "react-icons/fi";
 import { TfiBarChartAlt } from "react-icons/tfi";
 import { MdInsights } from "react-icons/md";
 import { TbListDetails } from "react-icons/tb";
 
-const Route = ({ Icon, selected, title, children }) => {
-    const [isOpen, setIsOpen] = React.useState(false);
-    const hasChildren = React.Children.count(children) > 0;
-    return (
-        <div>
-            <div
-                className={`flex items-center justify-start gap-2 w-full rounded px-2 py-1.5 text-sm transition-[box-shadow,_background-color, _color] cursor-pointer ${selected
-                        ? "bg-white text-stone-950 shadow"
-                        : "hover:bg-stone-500 bg-transparent shadow-none"
-                    }`}
-                onClick={() => hasChildren && setIsOpen((prev) => !prev)}
-            >
-                <Icon />
-                <span>{title}</span>
-                {hasChildren && (
-                    <span className="ml-auto">{isOpen ? "▼" : "▶"}</span>
-                )}
-            </div>
-            {hasChildren && isOpen && (
-                <div className="ml-6 mt-1 space-y-1">{children}</div>
-            )}
-        </div>
-    );
+const Route = ({ Icon, active, title, onClick, children }) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const hasChildren = React.Children.count(children) > 0;
+
+  return (
+    <div>
+      <button
+        type="button"
+        className={`flex w-full items-center justify-start gap-2 rounded-xl px-2.5 py-1.5 text-xs font-medium transition-[background,box-shadow,color,transform] ${
+          active
+            ? "bg-white/10 text-[#E8EAED] shadow-[0_0_0_1px_rgba(48,120,255,0.7)]"
+            : "text-slate-400 hover:bg-white/5 hover:text-[#E8EAED]"
+        }`}
+        onClick={() => {
+          if (onClick) onClick();
+          if (hasChildren) setIsOpen((prev) => !prev);
+        }}
+      >
+        <Icon className="h-3.5 w-3.5" />
+        <span>{title}</span>
+        {hasChildren && (
+          <span className="ml-auto text-[10px]">{isOpen ? "▴" : "▾"}</span>
+        )}
+      </button>
+      {hasChildren && isOpen && (
+        <div className="ml-6 mt-1 space-y-1">{children}</div>
+      )}
+    </div>
+  );
 };
 
 export const RouteSelect = () => {
-    return (
-        <div className="space-y-1">
-            <Route Icon={FiHome} selected={true} title="Dashboard" />
+  const navigate = useNavigate();
+  const location = useLocation();
+  const path = location.pathname;
 
-            <Route Icon={FiShoppingCart} selected={false} title="Add Expense">
-                <button className="block w-full text-left text-xs text-stone-700 hover:text-stone-950">
-                    Add New
-                </button>
-            </Route>
+  return (
+    <div className="space-y-1 text-[11px]">
+      <Route
+        Icon={FiHome}
+        title="Dashboard"
+        active={path.startsWith("/Dashboard")}
+        onClick={() => navigate("/Dashboard")}
+      />
 
-            <Route Icon={TbListDetails} selected={false} title="Details">
-                <button className="block w-full text-left text-xs text-stone-700 hover:text-stone-950">
-                    By Date
-                </button>
-                <button className="block w-full text-left text-xs text-stone-700 hover:text-stone-950">
-                    By Category
-                </button>
-            </Route>
+      <Route Icon={FiShoppingCart} title="Add Expense" active={path === "/expenses/new"}>
+        <button
+          onClick={() => navigate("/expenses/new")}
+          className="block w-full text-left text-[10px] text-slate-400 transition hover:text-[#E8EAED]"
+        >
+          Add new expense
+        </button>
+      </Route>
 
-            <Route Icon={TfiBarChartAlt} selected={false} title="Monthly Breakdowns" />
-            <Route Icon={FiActivity} selected={false} title="Activity" />
-            <Route Icon={MdInsights} selected={false} title="Insights" />
-        </div>
-    );
+      <Route Icon={TbListDetails} title="Details" active={false}>
+        <button className="block w-full text-left text-[10px] text-slate-400 transition hover:text-[#E8EAED]">
+          By date
+        </button>
+        <button className="block w-full text-left text-[10px] text-slate-400 transition hover:text-[#E8EAED]">
+          By category
+        </button>
+      </Route>
+
+      <Route Icon={TfiBarChartAlt} title="Monthly breakdowns" active={false} />
+      <Route Icon={FiActivity} title="Activity" active={false} />
+      <Route Icon={MdInsights} title="Insights" active={false} />
+    </div>
+  );
 };

@@ -56,13 +56,13 @@ const datas = [
 ];
 
     return (
-        <div className="col-span-4 overflow-hidden rounded border border-stone-300 ">
+        <div className="col-span-4 overflow-hidden rounded-2xl border border-[#3078FF40] bg-[#0B1120]/70 shadow-[0_14px_36px_rgba(0,0,0,0.6)] backdrop-blur-xl">
             <div className="p-4">
-                <h3 className="flex items-center font-medium gap-1.5 py-1.5">
+                <h3 className="flex items-center gap-1.5 py-1.5 font-medium text-[#E8EAED]">
                     <FiEye /> Expense Area
                 </h3>
             </div>
-            <div className="h-64 px-4">
+            <div className="h-64 px-4 text-slate-200">
                 <RadarChart
                     style={{ width: '100%', height: '100%', maxWidth: '500px', maxHeight: '80vh', aspectRatio: 1 }}
                     responsive
@@ -75,10 +75,16 @@ const datas = [
                         bottom: 20,
                     }}
                 >
-                    <PolarGrid />
-                    <PolarAngleAxis dataKey="subject" />
-                    <PolarRadiusAxis />
-                    <Radar name="Mike" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+                    <PolarGrid stroke="#1b2942" />
+                    <PolarAngleAxis dataKey="subject" tick={{ fill: "#7d8bb6", fontSize: 11 }} />
+                    <PolarRadiusAxis tick={{ fill: "#7d8bb6", fontSize: 10 }} />
+                    <Radar
+                        name="Spending"
+                        dataKey="A"
+                        stroke="#8B4FFF"
+                        fill="#8B4FFF"
+                        fillOpacity={0.35}
+                    />
                 </RadarChart>
             </div>
         </div>

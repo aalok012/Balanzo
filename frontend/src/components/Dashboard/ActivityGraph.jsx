@@ -1,115 +1,111 @@
 import React from "react";
-import {FiUser} from "react-icons/fi";
-import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts';
+import { FiUser } from "react-icons/fi";
+import {
+  CartesianGrid,
+  Legend,
+  Line,
+  LineChart,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 import { useQuery } from "@tanstack/react-query";
-import api from "../../axiosApi.jsx";      // or "../../axiosApi"
+import api from "../../axiosApi.jsx";
 
+export const ActivityGraph = () => {
+  const { data } = useQuery({
+    queryKey: ["monthlyAvg"],
+    queryFn: async () => {
+      const res = await api.get("/v1/expenses/monthlyAvg");
+      return res.data.data;
+    },
+  });
 
+  const last7Months = data?.slice(-7) ?? [];
 
+  const labelFor = (idx, fallback) => {
+    const m = last7Months[idx];
+    return m && m._id ? `${m._id.month}/${m._id.year}` : fallback;
+  };
 
-export const ActivityGraph  = () => {
+  const chartData = Array.from({ length: 7 }).map((_, idx) => ({
+    name: labelFor(idx, `M${idx + 1}`),
+    Income: last7Months[idx]?.income ?? 0,
+    Expenses: last7Months[idx]?.avgAmt ?? 0,
+  }));
 
+  return (
+    <div className="col-span-8 overflow-hidden rounded-2xl border border-[#3078FF40] bg-[#0B1120]/75 shadow-[0_14px_36px_rgba(0,0,0,0.6)] backdrop-blur-xl">
+      <div className="flex items-center justify-between p-4">
+        <h3 className="flex items-center gap-1.5 text-sm font-medium text-[#E8EAED]">
+          <FiUser /> Activity
+        </h3>
+        <span className="rounded-full bg-white/5 px-2 py-0.5 text-[10px] text-slate-300">
+          Latest monthly income vs expenses
+        </span>
+      </div>
 
-const { data, isLoading, error } = useQuery({
-  queryKey: ["monthlyAvg"],
-  queryFn: async () => {
-    const res = await api.get("/v1/expenses/monthlyAvg");
-    return res.data.data; // array of months
-  }
-});
-const incomeBase = 5000;
-let getIncomeForMonth = (base, monthIndex) => {
-  // monthIndex starts from 0 → 7 months → 0 to 6
-  return base * Math.pow(1.05, monthIndex);
-};
-
-
-const last7Months = data?.slice(-7) ?? [];
-
-const labelFor = (idx, fallback) => {
-  const m = last7Months[idx];
-  return m && m._id
-    ? `${m._id.month}/${m._id.year}`
-    : fallback;
-};
-const datas = [
-  {
-    name: labelFor(0, "Month 1"),
-    Income: getIncomeForMonth = (incomeBase, 0),
-    Expenses: last7Months[0] ? last7Months[0].avgAmt : "N/A",
-    amt: 2400,
-  },
-  {
-    name: labelFor(1, "Month 2"),
-    Income: getIncomeForMonth = (incomeBase, 1),
-    Expenses: last7Months[1] ? last7Months[1].avgAmt : "N/A",
-    amt: 2210,
-  },
-  {
-    name: labelFor(2, "Month 3"),
-    Income: getIncomeForMonth = (incomeBase, 2),
-    Expenses: last7Months[2] ? last7Months[2].avgAmt : "N/A",
-    amt: 2290,
-  },
-  {
-    name: labelFor(3, "Month 4"),
-    Income: getIncomeForMonth = (incomeBase, 3),
-    Expenses: last7Months[3] ? last7Months[3].avgAmt : "N/A",
-    amt: 2000,
-  },
-  {
-    name: labelFor(4, "Month 5"),
-    Income: getIncomeForMonth = (incomeBase, 4),
-    Expenses: last7Months[4] ? last7Months[4].avgAmt : "N/A",
-    amt: 2181,
-  },
-  {
-    name: labelFor(5, "Month 6"),
-    Income: getIncomeForMonth = (incomeBase, 5),
-    Expenses: last7Months[5] ? last7Months[5].avgAmt : "N/A",
-    amt: 2500,
-  },
-  {
-    name: labelFor(6, "Month 7"),
-    Income: getIncomeForMonth = (incomeBase, 6),
-    Expenses: last7Months[6] ? last7Months[6].avgAmt : "N/A",
-    amt: 2100,
-  },
-];
-
-
-  
-  
-  
-  
-  
-  
-  
-  return (    
-        <div className="col-span-8 overflow-hidden rounded border border-stone-300 ">
-            <div className="p-4"> 
-                <h3 className="flex gap-1.5 items-center font-medium">
-                    <FiUser/> Activity
-                </h3>
-
-            </div>
-
- <div className="px-4">   
-            <LineChart
-      style={{ width: '100%', maxWidth: '700px', maxHeight: '70vh', aspectRatio: 1.618 }}
-      responsive
-      data={datas}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" padding={{ left: 30, right: 30 }} />
-      <YAxis width="auto" />
-      <Tooltip />
-      <Legend />
-      <Line type="monotone" dataKey="Income" stroke="#8884d8" activeDot={{ r: 8 }} />
-      <Line type="monotone" dataKey="Expenses" stroke="#82ca9d" />
-    </LineChart>
-
- </div>
-        </div>
-    );
+      <div className="px-4 pb-4 text-slate-200">
+        <LineChart
+          style={{
+            width: "100%",
+            maxWidth: "700px",
+            maxHeight: "70vh",
+            aspectRatio: 1.618,
+          }}
+          data={chartData}
+        >
+          <CartesianGrid stroke="#1b2942" strokeDasharray="1 4" />
+          <XAxis
+            dataKey="name"
+            padding={{ left: 30, right: 30 }}
+            tick={{ fill: "#7d8bb6", fontSize: 11 }}
+            tickLine={false}
+          />
+          <YAxis
+            width={50}
+            tick={{ fill: "#7d8bb6", fontSize: 11 }}
+            tickLine={false}
+            axisLine={false}
+          />
+          <Tooltip
+            contentStyle={{
+              background: "#040B18",
+              border: "1px solid #22304a",
+              borderRadius: "0.75rem",
+              color: "#E8EAED",
+              fontSize: 11,
+            }}
+          />
+          <Legend wrapperStyle={{ fontSize: 11, color: "#9ca3c7" }} />
+          <Line
+            type="monotone"
+            dataKey="Income"
+            stroke="#3078FF"
+            strokeWidth={2}
+            dot={false}
+            activeDot={{
+              r: 5,
+              stroke: "#040B18",
+              strokeWidth: 2,
+              fill: "#3DFAC8",
+            }}
+          />
+          <Line
+            type="monotone"
+            dataKey="Expenses"
+            stroke="#3DFAC8"
+            strokeWidth={2}
+            dot={false}
+            activeDot={{
+              r: 5,
+              stroke: "#040B18",
+              strokeWidth: 2,
+              fill: "#8B4FFF",
+            }}
+          />
+        </LineChart>
+      </div>
+    </div>
+  );
 }

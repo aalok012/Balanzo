@@ -6,9 +6,12 @@ export default function Logout() {
 
   useEffect(() => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userFullname");
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("username");
+    localStorage.removeItem("userFullname");
     navigate("/login", { replace: true });
   }, [navigate]);
 
   return null;
 }
-

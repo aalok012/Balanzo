@@ -12,7 +12,7 @@ export function About() {
         {/* page label */}
         <div className="inline-flex items-center gap-2 rounded-full border border-sky-500/40 bg-sky-500/10 px-3 py-1 text-[11px] font-medium text-sky-100 backdrop-blur-sm">
           <span className="inline-flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span>About the creator &amp; Balanzo</span>
+          <span>About Balanzo</span>
         </div>
 
         {/* main hero: personal card + app section */}
@@ -39,32 +39,29 @@ export function About() {
                     </span>
                   </h1>
                   <p className="text-[13px] text-slate-300">
-                    Developer &amp; Creator
+                    Developer
                   </p>
                 </div>
               </div>
 
               <p className="text-sm text-slate-300 leading-relaxed">
-                I built Balanzo for people who want to feel calm and in control
-                when they open their finance app. No noise, no jargon—just a
-                clear story of where your money is going and what you can do
-                next.
+                I built Balanzo to make it easy to see where your money goes.
+                When you open the app, you should quickly understand what you
+                spent and what you have left.
               </p>
               <p className="text-sm text-slate-300 leading-relaxed">
-                My focus is on smooth experiences, honest numbers, and tools
-                that feel like they&apos;re on your side, not watching over
-                your shoulder.
+                
               </p>
 
               <div className="mt-1 flex flex-wrap gap-2 text-[11px]">
                 <span className="rounded-full bg-sky-500/15 border border-sky-400/40 px-3 py-1 text-sky-100">
-                  Fintech &amp; dashboards
+                  Personal finance app
                 </span>
                 <span className="rounded-full bg-cyan-500/15 border border-cyan-400/40 px-3 py-1 text-cyan-100">
-                  UX‑first builder
+                  Built for everyday use
                 </span>
                 <span className="rounded-full bg-emerald-500/15 border border-emerald-400/40 px-3 py-1 text-emerald-100">
-                  Clean, human language
+                  Clear, Clean with Graphs
                 </span>
               </div>
             </div>
@@ -96,20 +93,7 @@ export function About() {
               </div>
 
               {/* feature chips */}
-              <div className="flex flex-wrap gap-3 mb-6 text-[11px] sm:text-xs">
-                <div className="inline-flex items-center gap-2 rounded-full bg-slate-900/40 border border-sky-300/40 px-3 py-1">
-                  <span className="text-sky-200 text-sm">💸</span>
-                  <span className="text-slate-100">Expense tracking that feels natural</span>
-                </div>
-                <div className="inline-flex items-center gap-2 rounded-full bg-slate-900/40 border border-cyan-300/40 px-3 py-1">
-                  <span className="text-cyan-200 text-sm">📊</span>
-                  <span className="text-slate-100">Smart analytics &amp; trends</span>
-                </div>
-                <div className="inline-flex items-center gap-2 rounded-full bg-slate-900/40 border border-emerald-300/40 px-3 py-1">
-                  <span className="text-emerald-200 text-sm">📈</span>
-                  <span className="text-slate-100">Powerful yet simple dashboard</span>
-                </div>
-              </div>
+              
 
               {/* mock dashboard preview */}
               <div className="grid gap-4 md:grid-cols-[1.2fr_0.9fr] items-start">
@@ -159,14 +143,12 @@ export function About() {
                       <div className="h-full w-2/3 rounded-full bg-gradient-to-r from-emerald-400 to-sky-300 animate-pulse" />
                     </div>
                     <p className="mt-1 text-[11px] text-slate-400">
-                      Balanzo quietly watches your limits and nudges you before
-                      things feel tight.
+                     
                     </p>
                   </div>
 
                   <div className="rounded-2xl bg-slate-950/40 border border-sky-300/40 p-3">
-                    <p className="text-slate-200 mb-1">What Balanzo helps you do</p>
-                    <ul className="space-y-1.5 text-[11px] text-slate-300">
+                    <ul className="space-y-2 text-[12px] text-slate-300">
                       <li>• Keep all expenses in one clean place.</li>
                       <li>• Spot patterns that are easy to miss on your own.</li>
                       <li>• Turn confusing numbers into clear daily decisions.</li>

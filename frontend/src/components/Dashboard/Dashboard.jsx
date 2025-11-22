@@ -1,21 +1,12 @@
-import React from 'react';
-import {TopBar} from './TopBar.jsx';
-import {Grid} from './Grid.jsx';
-import {ActivityGraph} from './ActivityGraph.jsx';
-import {UsageRadar} from './UsageRadar.jsx';
-import {StatCards} from './StatCards.jsx';
-import {RecentTransactions} from './RecentTransactions.jsx';
-import {useQuery} from "@tanstack/react-query";
-import api from "../../axiosApi.jsx";      // or "../../axiosApi"
-  
-
+import React from "react";
+import { TopBar } from "./TopBar.jsx";
+import { Grid } from "./Grid.jsx";
 
 export const Dashboard = () => {
   return (
-    <div className="bg-white rounded-lg pb-4 shadow h-[200vh]">
+    <div className="h-full rounded-3xl border border-white/10 bg-white/5 pb-4 shadow-[0_22px_60px_rgba(0,0,0,0.65)] backdrop-blur-xl">
       <TopBar />
-      <Grid/>
-  
+      <Grid />
     </div>
   );
 };

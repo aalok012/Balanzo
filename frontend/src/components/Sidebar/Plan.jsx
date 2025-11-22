@@ -1,19 +1,17 @@
-import react from "react";
+import React from "react";
 
 export const Plan = () => {
-    return (
-        <div className="flex sticky top-[calc(100vh-48px-16px)] flex-col h-12  border-t px-2 border-        
-     stone-300 justify-end text-xs">
-            <div className="flex items-center justify-between">
-                <div>
-                    <p className="font-bold">Balanzo</p>
-                    <p className="text-stone-500">Plan your money</p>
-                </div>
-                <button className="px-2 py-1.5 font-medium bg-stone-200 hover:bg-stone-300 transition-                      
-           colors rounded">
-                    Support
-                </button>
-            </div>
+  return (
+    <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-[11px] text-slate-200">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="font-semibold tracking-wide text-[#E8EAED]">Balanzo</p>
+          <p className="text-[10px] text-slate-400">Plan your money with calm.</p>
         </div>
-    );
+        <button className="rounded-full bg-[#3078FF] px-2.5 py-1 text-[10px] font-medium text-white shadow-[0_0_0_1px_rgba(48,120,255,0.6)] transition hover:bg-[#3b82ff]">
+          Support
+        </button>
+      </div>
+    </div>
+  );
 };

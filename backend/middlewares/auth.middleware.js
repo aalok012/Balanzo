@@ -5,8 +5,7 @@ import { User } from "../models/User.models.js";
 
 export const verifyJwt = asyncHandler(async(req, res, next) => {
     try {
-        // Fix 1: 'coookies' → 'cookies' (typo)
-        // Fix 2: Add space after "Bearer " in replace
+       
         const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "");
         
         if (!token) { 

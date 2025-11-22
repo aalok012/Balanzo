@@ -30,6 +30,7 @@ export const StatCards = () => {
 
 const mostRecentMonth = monthlyData?.[monthlyData.length - 1] ?? null;
 const avgAmt = mostRecentMonth?.avgAmt || 0;
+const latestIncome = mostRecentMonth?.income || 0;
 const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const dateString = mostRecentMonth 
   ? `${monthNames[mostRecentMonth._id.month - 1]} ${mostRecentMonth._id.year}`
@@ -37,56 +38,76 @@ const dateString = mostRecentMonth
 
 
 
-    return (
-        <>
-            <Card 
-                title="Total Expenses"
-                value={totalData?.[0]?.totalAmt ?? 0}
-                pillText="+12.5%"
-                trend="up"
-                period="From all time"
-            />
-            <Card 
-            title="Monthly Expenses"
-                value={avgAmt}
-                pillText="+10.5%"
-                trend="up"
-                period={dateString}    
-                 />
-            <Card
-            title="Total Income"
-                value="$5,000"
-                pillText="+0.5%"
-                trend="up"
-                period="Previous 30 days"/>
-        </>
-    );
+  return (
+    <>
+      <Card
+        title="Total Expenses"
+        value={totalData?.[0]?.totalAmt ?? 0}
+        pillText="+12.5%"
+        trend="up"
+        period="From all time"
+        variant="blue"
+      />
+      <Card
+        title="Monthly Expenses"
+        value={avgAmt}
+        pillText="+10.5%"
+        trend="up"
+        period={dateString}
+        variant="green"
+      />
+      <Card
+        title="Monthly Income"
+        value={latestIncome}
+        pillText="Latest"
+        trend="up"
+        period={dateString}
+        variant="purple"
+      />
+    </>
+  );
 };
 
-const Card=({ //passing props for the card
-    title,
-    value,
-    pillText,
-    trend,
-    period,
+const Card = ({
+  title,
+  value,
+  pillText,
+  trend,
+  period,
+  variant = "blue",
 }) => {
+  const pillClasses =
+    trend === "up"
+      ? "bg-[#3DFAC8]/20 text-[#3DFAC8]"
+      : "bg-rose-500/20 text-rose-200";
 
-    return(
-        <div className=" col-span-4 p-4 rounded border border-stone-300  ">
-            <div className="flex mb-8 items-start justify-between">
-               <div>
-                <h3 className="text-stone-500 mb-2 text-sm ">{title} </h3>
-                <p className="text-3xl font-semibold">{value}</p>
+  const base =
+    "col-span-4 rounded-2xl p-4 shadow-[0_18px_40px_rgba(0,0,0,0.65)] border backdrop-blur-xl";
 
-            </div>
-            
-          <span
-              className={`text-xs flex items-center gap-1 font-medium px-2 py-1 rounded ${trend==="up "? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
-               {trend==="up" ? <FiTrendingUp/> : <FiTrendingDown/> } {pillText}</span>
-          
-               </div>
-            <p className="text-xs text-stone-500">{period}</p>
+  const variantClasses =
+    variant === "green"
+      ? "border-[#3DFAC8]/40 bg-[linear-gradient(135deg,#061926,#0b2f29)]"
+      : variant === "purple"
+      ? "border-[#8B4FFF]/40 bg-[linear-gradient(135deg,#0a1024,#221046)]"
+      : "border-[#3078FF]/40 bg-[linear-gradient(135deg,#061526,#102f5e)]";
 
+  return (
+    <div className={`${base} ${variantClasses}`}>
+      <div className="mb-8 flex items-start justify-between">
+        <div>
+          <h3 className="mb-2 text-xs font-medium uppercase tracking-[0.16em] text-slate-300">
+            {title}
+          </h3>
+          <p className="text-3xl font-semibold text-[#E8EAED]">{value}</p>
         </div>
-    );
-}
+
+        <span
+          className={`flex items-center gap-1 rounded px-2 py-1 text-xs font-medium ${pillClasses}`}
+        >
+          {trend === "up" ? <FiTrendingUp /> : <FiTrendingDown />} {pillText}
+        </span>
+      </div>
+      <p className="text-xs text-slate-400">{period}</p>
+    </div>
+  );
+};

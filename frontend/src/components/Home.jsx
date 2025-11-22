@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 //designed the home
 export default function Home() {
+  const isAuthenticated = Boolean(localStorage.getItem("token"));
   return (
     <section className="relative flex flex-1 flex-col overflow-hidden bg-gradient-to-b from-sky-50 via-sky-100 to-white text-slate-900">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.25)_0,_transparent_55%),_radial-gradient(circle_at_bottom,_rgba(56,189,248,0.2)_0,_transparent_55%)]" />
@@ -13,57 +14,47 @@ export default function Home() {
           <div className="flex-1 space-y-6">
             <div className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50/80 px-3 py-1 text-xs font-medium text-sky-700">
               <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Simple, smart control over your expenses</span>
+              <span>Glimpse of your daily spending</span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
-              Your money,
+              Track your spending
               <span className="block bg-gradient-to-r from-sky-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                always under control.
+                in one clear view.
               </span>
             </h1>
 
             <p className="text-base sm:text-lg text-slate-700 max-w-xl">
-              Balanzo is a modern expense tracker that shows you where your
-              money goes, gives AI-powered suggestions, and helps you stick to
-              the plans you set.
+              Balanzo shows what you earn, what you spend, and how much is left
+              for the month. 
             </p>
 
             <div className="flex flex-wrap gap-4 pt-2">
-              <Link
-                to="/register"
-                className="inline-flex items-center rounded-xl bg-blue-600 px-6 py-3 text-sm sm:text-base font-semibold text-white shadow-lg shadow-blue-400/40 hover:bg-blue-500 transition-transform duration-150 hover:-translate-y-0.5"
-              >
-                Get started for free
-                <span className="ml-2 translate-y-px">→</span>
-              </Link>
-              <Link
-                to="/login"
-                className="inline-flex items-center rounded-xl border border-blue-200 bg-white/80 px-6 py-3 text-sm sm:text-base font-medium text-blue-700 hover:bg-blue-50 transition-colors"
-              >
-                Already using Balanzo?
-              </Link>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-slate-600 pt-4">
-              <div className="flex items-center gap-2">
-                <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-blue-100 text-blue-700 text-base">
-                  🔒
-                </span>
-                <span>Bank‑level protection for your data</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 text-base">
-                  🤖
-                </span>
-                <span>AI suggestions to keep spending in check</span>
-              </div>
-              <Link
-                to="/about"
-                className="underline underline-offset-4 decoration-sky-400 hover:decoration-sky-600"
-              >
-                Learn more about Balanzo
-              </Link>
+              {!isAuthenticated ? (
+                <>
+                  <Link
+                    to="/register"
+                    className="inline-flex items-center rounded-xl bg-blue-600 px-6 py-3 text-sm sm:text-base font-semibold text-white shadow-lg shadow-blue-400/40 hover:bg-blue-500 transition-transform duration-150 hover:-translate-y-0.5"
+                  >
+                    Get started for free
+                    <span className="ml-2 translate-y-px">→</span>
+                  </Link>
+                  <Link
+                    to="/login"
+                    className="inline-flex items-center rounded-xl border border-blue-200 bg-white/80 px-6 py-3 text-sm sm:text-base font-medium text-blue-700 hover:bg-blue-50 transition-colors"
+                  >
+                    Already have an account?
+                  </Link>
+                </>
+              ) : (
+                <Link
+                  to="/Dashboard"
+                  className="inline-flex items-center rounded-xl bg-blue-600 px-6 py-3 text-sm sm:text-base font-semibold text-white shadow-lg shadow-blue-400/40 hover:bg-blue-500 transition-transform duration-150 hover:-translate-y-0.5"
+                >
+                  Go to your dashboard
+                  <span className="ml-2 translate-y-px">↗</span>
+                </Link>
+              )}
             </div>
           </div>
 
@@ -75,19 +66,19 @@ export default function Home() {
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <p className="text-xs font-medium text-slate-500">
-                      This month&apos;s balance
+                      This month
                     </p>
                     <p className="text-2xl sm:text-3xl font-semibold text-slate-900">
                       ₹ 24,560
                     </p>
                   </div>
                   <span className="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700">
-                    ▲ 18.4% vs last month
+                    Up 18% from last month
                   </span>
                 </div>
 
                 {/* Mini bar chart */}
-                <div className="mb-6">
+                <div className="mb-4">
                   <div className="flex items-end gap-1.5 h-28">
                     {[40, 60, 55, 80, 65, 90].map((height, idx) => (
                       <div
@@ -106,6 +97,48 @@ export default function Home() {
                     <span>Apr</span>
                     <span>May</span>
                     <span>Jun</span>
+                  </div>
+                </div>
+
+                {/* Simple line graph */}
+                <div className="mb-6">
+                  <div className="mb-1 flex items-center justify-between text-[10px] text-slate-500">
+                    <span>Last 7 days</span>
+                  </div>
+                  <div className="h-24 w-full rounded-xl bg-slate-50 px-3 py-2">
+                    <svg
+                      viewBox="0 0 120 40"
+                      className="h-full w-full"
+                      preserveAspectRatio="none"
+                    >
+                      <defs>
+                        <linearGradient
+                          id="homeLineGradient"
+                          x1="0"
+                          y1="0"
+                          x2="1"
+                          y2="0"
+                        >
+                          <stop offset="0%" stopColor="#38bdf8" />
+                          <stop offset="50%" stopColor="#3b82f6" />
+                          <stop offset="100%" stopColor="#22c55e" />
+                        </linearGradient>
+                      </defs>
+
+                      <path
+                        d="M0 28 L20 24 L40 26 L60 18 L80 22 L100 15 L120 19"
+                        fill="none"
+                        stroke="url(#homeLineGradient)"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M0 40 L0 28 L20 24 L40 26 L60 18 L80 22 L100 15 L120 19 L120 40 Z"
+                        fill="url(#homeLineGradient)"
+                        opacity="0.16"
+                      />
+                    </svg>
                   </div>
                 </div>
 
@@ -133,7 +166,7 @@ export default function Home() {
                       to="/Dashboard"
                       className="inline-flex items-center gap-1 pt-2 text-[11px] font-medium text-sky-600 hover:text-sky-700"
                     >
-                      See full dashboard
+                      Open dashboard
                       <span>↗</span>
                     </Link>
                   </div>

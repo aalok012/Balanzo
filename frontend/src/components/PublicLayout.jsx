@@ -9,6 +9,7 @@ export default function PublicLayout() {
 
   return (
     <div className="flex min-h-screen flex-col bg-slate-50">
+      {!isDashboard && (
       <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur shadow-sm">
         <nav className="px-4 py-2.5 lg:px-6">
           <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between gap-3">
@@ -131,6 +132,7 @@ export default function PublicLayout() {
           </div>
         </nav>
       </header>
+      )}
 
       <main className="flex flex-1 flex-col">
         <Outlet />

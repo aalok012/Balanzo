@@ -4,7 +4,7 @@ import  ApiResponse  from "../utils/ApiResponse.js"; // Add .js and check if it'
 import { asyncHandler } from "../utils/asyncHandler.js"; // Remove the other import
 
 const addExpenseToDb = asyncHandler(async(req, res) => {
-    const { amount, description, date, category } = req.body;
+    const { amount, description, date, category, income } = req.body;
      
     if (!(amount && description && date && category)) {
         throw new ApiError(400, "Please fill up the required fields!"); // Changed 401 to 400
@@ -15,7 +15,8 @@ const addExpenseToDb = asyncHandler(async(req, res) => {
         amount, 
         description, 
         date,
-        category
+        category,
+        income
     });
     
     return res.status(201).json(
@@ -54,20 +55,27 @@ const sumAmount = asyncHandler(async(req,res)=>{
    )
 })
 
-const monthlyAvg = asyncHandler(async(req,res)=>{
-   const monthAvg = await Expense.aggregate([
-      {$match:{user: req.user._id}}, // Change user to user
-      {$group:{
-         _id: {year:{$year:"$date"}, month:{$month:"$date"}},
-         avgAmt:{$avg:"$amount"}
-      }},
-      {$sort: {"_id.year": 1, "_id.month": 1}}
-   ])
-   
-   res.status(200).json(
-      new ApiResponse(200, "Monthly average retrieved successfully", monthAvg)
-   )
-})
+const monthlyAvg = asyncHandler(async (req, res) => {
+  const monthAvg = await Expense.aggregate([
+    { $match: { user: req.user._id } },
+    // sort so $last picks the latest income set for that month
+    { $sort: { date: 1 } },
+    {
+      $group: {
+        _id: { year: { $year: "$date" }, month: { $month: "$date" } },
+        avgAmt: { $avg: "$amount" },
+        income: { $last: "$income" },
+      },
+    },
+    { $sort: { "_id.year": 1, "_id.month": 1 } },
+  ]);
+
+  res
+    .status(200)
+    .json(
+      new ApiResponse(200, "Monthly summary retrieved successfully", monthAvg)
+    );
+});
 
 const getDatedExpense = asyncHandler(async(req,res)=>{
    const {startDate, endDate, category, sortOrder} = req.query;

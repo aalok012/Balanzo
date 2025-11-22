@@ -26,6 +26,13 @@ const expenseSchema = new mongoose.Schema(
       required: true,
       trim: true,
       enum: ['Shopping', "Food", "Transport", "Rent", "Entertainment", "Others"],
+
+    },
+    income: {
+      type: Number,
+      default: 0,
+      required: true,
+      min: 0,
     },
   },
   { timestamps: true }

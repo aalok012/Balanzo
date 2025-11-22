@@ -4,158 +4,203 @@ import image11 from "../../images/Image_11.png";
 
 export default function Footer() {
     return (
-        <footer className="fixed inset-x-0 bottom-0 z-40 bg-white/95 border-t shadow-inner">
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-sky-400 via-blue-500 to-emerald-400 motion-safe:animate-[pulse_6s_ease-in-out_infinite]" />
-            <div className="mx-auto w-full max-w-screen-xl px-4 py-0.5 lg:py-1">
-                <div className="md:flex md:justify-between">
-                    <div className="mb-1 md:mb-0">
-                        <Link to="/" className="flex items-center">
-                            <img
-                                src={image11}
-                                className="mr-2 h-6"
-                                alt="Logo"
-                            />
+        <footer className="relative border-t border-slate-800/80 bg-slate-950/95 backdrop-blur">
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-sky-500/30 via-blue-500/40 to-indigo-500/30" />
+            <div className="mx-auto w-full max-w-6xl px-3 py-2">
+                <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                    <div className="space-y-1.5 md:max-w-xs">
+                        <Link to="/" className="flex items-center gap-2">
+                            
+                            <span className="text-xs font-semibold tracking-wide text-slate-100">
+                                Balanzo</span>
                         </Link>
+                        <p className="text-[10px] leading-snug text-slate-400">
+                            A secure way to manage your money and grow
+                            your financial future.
+                        </p>
+                        <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/40 bg-emerald-500/10 px-2 py-0.5">
+                            <svg
+                                className="h-3.5 w-3.5 text-emerald-300"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                            >
+                                <path d="M10.75 2.75 16 4.5v5.25c0 3.5-2.5 6.75-6 7.5-3.5-.75-6-4-6-7.5V4.5l5.25-1.75" />
+                                <path d="M8 10.25 9.75 12 13 8.75" />
+                            </svg>
+                            <span className="text-[10px] font-medium uppercase tracking-[0.16em] text-emerald-100">
+                                Bank-level security
+                            </span>
+                        </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
-                        <div>
-                            <h2 className="mb-2 text-xs font-semibold text-gray-900 uppercase">Resources</h2>
-                            <ul className="text-gray-500 font-medium text-xs">
-                                <li className="mb-1">
-                                    <Link to="/" className="hover:underline">
-                                        Home
-                                    </Link>
-                                </li>
+
+                    <div className="grid flex-1 grid-cols-2 gap-4 border-t border-slate-800/70 pt-3 text-[11px] sm:grid-cols-4 md:border-t-0 md:border-l md:pl-5">
+                        <div className="space-y-1.5">
+                            <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-300">
+                                Company
+                            </h2>
+                            <ul className="space-y-1 text-slate-400">
                                 <li>
-                                    <Link to="/about" className="hover:underline">
+                                    <Link to="/about" className="transition-colors hover:text-slate-200">
                                         About
                                     </Link>
                                 </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h2 className="mb-2 text-xs font-semibold text-gray-900 uppercase">Follow us</h2>
-                            <ul className="text-gray-500 font-medium text-xs">
-                                <li className="mb-1">
-                                    <a
-                                        href="https://github.com/hiteshchoudhary"
-                                        className="hover:underline"
-                                        target="_blank"
-                                        rel="noreferrer"
-                                    >
-                                        Github
-                                    </a>
+                                <li>
+                                    <Link to="#" className="transition-colors hover:text-slate-200">
+                                        Careers
+                                    </Link>
                                 </li>
                                 <li>
-                                    <Link to="/" className="hover:underline">
-                                        Discord
+                                    <Link to="#" className="transition-colors hover:text-slate-200">
+                                        Blog
                                     </Link>
                                 </li>
                             </ul>
                         </div>
-                        <div>
-                            <h2 className="mb-2 text-xs font-semibold text-gray-900 uppercase">Legal</h2>
-                            <ul className="text-gray-500 font-medium text-xs">
-                                <li className="mb-1">
-                                    <Link to="#" className="hover:underline">
+                        <div className="space-y-1.5">
+                            <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-300">
+                                Product
+                            </h2>
+                            <ul className="space-y-1 text-slate-400">
+                                <li>
+                                    <Link to="/" className="transition-colors hover:text-slate-200">
+                                        Overview
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="#" className="transition-colors hover:text-slate-200">
+                                        Features
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="#" className="transition-colors hover:text-slate-200">
+                                        Pricing
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="space-y-1.5">
+                            <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-300">
+                                Legal
+                            </h2>
+                            <ul className="space-y-1 text-slate-400">
+                                <li>
+                                    <Link to="#" className="transition-colors hover:text-slate-200">
                                         Privacy Policy
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="#" className="hover:underline">
+                                    <Link to="#" className="transition-colors hover:text-slate-200">
                                         Terms &amp; Conditions
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="#" className="transition-colors hover:text-slate-200">
+                                        Cookie Policy
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="space-y-1.5">
+                            <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-300">
+                                Support
+                            </h2>
+                            <ul className="space-y-1 text-slate-400">
+                                <li>
+                                    <Link to="#" className="transition-colors hover:text-slate-200">
+                                        Help Center
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="#" className="transition-colors hover:text-slate-200">
+                                        Contact Support
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="#" className="transition-colors hover:text-slate-200">
+                                        Status
                                     </Link>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <hr className="my-2 border-gray-200 sm:mx-auto lg:my-3" />
-                <div className="sm:flex sm:items-center sm:justify-between">
-                    <span className="text-xs text-gray-500 sm:text-center">
-                        © 2023
-                        <a href="https://github.com/aalok012" className="hover:underline">
+
+                <div className="mt-2 flex flex-col items-start justify-between gap-2 border-t border-slate-800/70 pt-2 text-[11px] text-slate-500 sm:flex-row sm:items-center">
+                    <span className="text-[11px] text-slate-500">
+                        © 2023{" "}
+                        <a
+                            href="https://github.com/aalok012"
+                            className="font-medium text-slate-300 hover:text-slate-100"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
                             aalokthakur
-                        </a>
-                        . All Rights Reserved.
+                        </a>{" "}
+                        . All rights reserved.
                     </span>
-                    <div className="flex mt-1 space-x-4 sm:justify-center sm:mt-0">
-                        <Link to="#" className="text-gray-500 hover:text-gray-900 transition-transform duration-150 hover:-translate-y-0.5">
-                            <svg
-                                className="w-4 h-4"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor"
-                                viewBox="0 0 8 19"
+                    <div className="flex items-center gap-3">
+                        <span className="text-[10px] uppercase tracking-[0.18em] text-slate-500">
+                            Connect
+                        </span>
+                        <div className="flex items-center gap-3">
+                            <a
+                                href="#"
+                                className="text-slate-400 transition-colors hover:text-sky-300"
+                                aria-label="LinkedIn"
                             >
-                                <path
-                                    fillRule="evenodd"
-                                    d="M6.135 3H8V0H6.135a4.147 4.147 0 0 0-4.142 4.142V6H0v3h2v9.938h3V9h2.021l.592-3H5V3.591A.6.6 0 0 1 5.592 3h.543Z"
-                                    clipRule="evenodd"
-                                />
-                            </svg>
-                            <span className="sr-only">Facebook page</span>
-                        </Link>
-                        <Link to="#" className="text-gray-500 hover:text-gray-900 transition-transform duration-150 hover:-translate-y-0.5">
-                            <svg
-                                className="w-4 h-4"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor"
-                                viewBox="0 0 21 16"
+                                <svg
+                                    className="h-4 w-4"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="1.5"
+                                >
+                                    <rect x="2.5" y="2.5" width="15" height="15" rx="2" />
+                                    <path d="M6 8.25v6" />
+                                    <path d="M6 6.25v.01" />
+                                    <path d="M9.75 14.25v-3.5A2 2 0 0 1 13 10.5c1.29 0 2.25.96 2.25 2.5v1.25" />
+                                </svg>
+                            </a>
+                            <a
+                                href="#"
+                                className="text-slate-400 transition-colors hover:text-sky-300"
+                                aria-label="X (Twitter)"
                             >
-                                <path d="M16.942 1.556a16.3 16.3 0 0 0-4.126-1.3 12.04 12.04 0 0 0-.529 1.1 15.175 15.175 0 0 0-4.573 0 11.585 11.585 0 0 0-.535-1.1 16.274 16.274 0 0 0-4.129 1.3A17.392 17.392 0 0 0 .182 13.218a15.785 15.785 0 0 0 4.963 2.521c.41-.564.773-1.16 1.084-1.785a10.63 10.63 0 0 1-1.706-.83c.143-.106.283-.217.418-.33a11.664 11.664 0 0 0 10.118 0c.137.113.277.224.418.33-.544.328-1.116.606-1.71.832a12.52 12.52 0 0 0 1.084 1.785 16.46 16.46 0 0 0 5.064-2.595 17.286 17.286 0 0 0-2.973-11.59ZM6.678 10.813a1.941 1.941 0 0 1-1.8-2.045 1.93 1.93 0 0 1 1.8-2.047 1.919 1.919 0 0 1 1.8 2.047 1.93 1.93 0 0 1-1.8 2.045Zm6.644 0a1.94 1.94 0 0 1-1.8-2.045 1.93 1.93 0 0 1 1.8-2.047 1.918 1.918 0 0 1 1.8 2.047 1.93 1.93 0 0 1-1.8 2.045Z" />
-                            </svg>
-                            <span className="sr-only">Discord community</span>
-                        </Link>
-                        <Link to="#" className="text-gray-500 hover:text-gray-900 transition-transform duration-150 hover:-translate-y-0.5">
-                            <svg
-                                className="w-4 h-4"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor"
-                                viewBox="0 0 20 17"
+                                <svg
+                                    className="h-4 w-4"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="1.5"
+                                >
+                                    <path d="M4 4.5 15.5 16" />
+                                    <path d="M15 4 10.75 8.75" />
+                                    <path d="M9.25 11.25 5 16" />
+                                </svg>
+                            </a>
+                            <a
+                                href="#"
+                                className="text-slate-400 transition-colors hover:text-sky-300"
+                                aria-label="GitHub"
                             >
-                                <path
-                                    fillRule="evenodd"
-                                    d="M20 1.892a8.178 8.178 0 0 1-2.355.635 4.074 4.074 0 0 0 1.8-2.235 8.344 8.344 0 0 1-2.605.98A4.13 4.13 0 0 0 13.85 0a4.068 4.068 0 0 0-4.1 4.038 4 4 0 0 0 .105.919A11.705 11.705 0 0 1 1.4.734a4.006 4.006 0 0 0 1.268 5.392 4.165 4.165 0 0 1-1.859-.5v.05A4.057 4.057 0 0 0 4.1 9.635a4.19 4.19 0 0 1-1.856.07 4.108 4.108 0 0 0 3.831 2.807A8.36 8.36 0 0 1 0 14.184 11.732 11.732 0 0 0 6.291 16 11.502 11.502 0 0 0 17.964 4.5c0-.177 0-.35-.012-.523A8.143 8.143 0 0 0 20 1.892Z"
-                                    clipRule="evenodd"
-                                />
-                            </svg>
-                            <span className="sr-only">Twitter page</span>
-                        </Link>
-                        <Link to="#" className="text-gray-500 hover:text-gray-900 transition-transform duration-150 hover:-translate-y-0.5">
-                            <svg
-                                className="w-4 h-4"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                            >
-                                <path
-                                    fillRule="evenodd"
-                                    d="M10 .333A9.911 9.911 0 0 0 6.866 19.65c.5.092.678-.215.678-.477 0-.237-.01-1.017-.014-1.845-2.757.6-3.338-1.169-3.338-1.169a2.627 2.627 0 0 0-1.1-1.451c-.9-.615.07-.6.07-.6a2.084 2.084 0 0 1 1.518 1.021 2.11 2.11 0 0 0 2.884.823c.044-.503.268-.973.63-1.325-2.2-.25-4.516-1.1-4.516-4.9A3.832 3.832 0 0 1 4.7 7.068a3.56 3.56 0 0 1 .095-2.623s.832-.266 2.726 1.016a9.409 9.409 0 0 1 4.962 0c1.89-1.282 2.717-1.016 2.717-1.016.366.83.402 1.768.1 2.623a3.827 3.827 0 0 1 1.02 2.659c0 3.807-2.319 4.644-4.525 4.889a2.366 2.366 0 0 1 .673 1.834c0 1.326-.012 2.394-.012 2.72 0 .263.18.572.681.475A9.911 9.911 0 0 0 10 .333Z"
-                                    clipRule="evenodd"
-                                />
-                            </svg>
-                            <span className="sr-only">GitHub account</span>
-                        </Link>
-                        <Link to="#" className="text-gray-500 hover:text-gray-900 transition-transform duration-150 hover:-translate-y-0.5">
-                            <svg
-                                className="w-4 h-4"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                            >
-                                <path
-                                    fillRule="evenodd"
-                                    d="M10 0a10 10 0 1 0 10 10A10.009 10.009 0 0 0 10 0Zm6.613 4.614a8.523 8.523 0 0 1 1.93 5.32 20.094 20.094 0 0 0-5.949-.274c-.059-.149-.122-.292-.184-.441a23.879 23.879 0 0 0-.566-1.239 11.41 11.41 0 0 0 4.769-3.366ZM8 1.707a8.821 8.821 0 0 1 2-.238 8.5 8.5 0 0 1 5.664 2.152 9.608 9.608 0 0 1-4.476 3.087A45.758 45.758 0 0 0 8 1.707ZM1.642 8.262a8.57 8.57 0 0 1 4.73-5.981A53.998 53.998 0 0 1 9.54 7.222a32.078 32.078 0 0 1-7.9 1.04h.002Zm2.01 7.46a8.51 8.51 0 0 1-2.2-5.707v-.262a31.64 31.64 0 0 0 8.777-1.219c.243.477.477.964.692 1.449-.114.032-.227.067-.336.1a13.569 13.569 0 0 0-6.942 5.636l.009.003ZM10 18.556a8.508 8.508 0 0 1-5.243-1.8 11.717 11.717 0 0 1 6.7-5.332.509.509 0 0 1 .055-.02 35.65 35.65 0 0 1 1.819 6.476 8.476 8.476 0 0 1-3.331.676Zm4.772-1.462A37.232 37.232 0 0 0 13.113 11a12.513 12.513 0 0 1 5.321.364 8.56 8.56 0 0 1-3.66 5.73h-.002Z"
-                                    clipRule="evenodd"
-                                />
-                            </svg>
-                            <span className="sr-only">Dribbble account</span>
-                        </Link>
+                                <svg
+                                    className="h-4 w-4"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="1.5"
+                                >
+                                    <path d="M10 2.5A7.5 7.5 0 0 0 5 14.85c.39.07.53-.17.53-.38 0-.19-.01-.81-.01-1.47-1.93.35-2.43-.47-2.58-.9-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.71-.19-3.51-.86-3.51-3.79 0-.84.3-1.53.79-2.07-.08-.2-.35-1.02.08-2.12 0 0 .66-.21 2.16.79a7.33 7.33 0 0 1 3.94 0c1.5-1 2.16-.79 2.16-.79.43 1.1.16 1.92.08 2.12.49.54.79 1.23.79 2.07 0 2.94-1.8 3.59-3.52 3.78.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.14.46.53.38A7.5 7.5 0 0 0 10 2.5Z" />
+                                </svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
