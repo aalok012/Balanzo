@@ -16,7 +16,7 @@ export const ActivityGraph = () => {
   const { data } = useQuery({
     queryKey: ["monthlyAvg"],
     queryFn: async () => {
-      const res = await api.get("/v1/expenses/monthlyAvg");
+      const res = await api.get("/expenses/monthlyAvg");
       return res.data.data;
     },
   });

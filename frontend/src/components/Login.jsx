@@ -10,7 +10,7 @@ const LoginWithGoogleButton = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const res = await api.post("/v1/users/login", { email, password });
+    const res = await api.post("/users/login", { email, password });
     const { accessToken, user } = res.data.data;
 
     localStorage.setItem("token", accessToken);

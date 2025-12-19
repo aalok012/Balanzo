@@ -15,7 +15,7 @@ export default function AddExpense() {
   const queryClient = useQueryClient();
 
   const { mutate, isPending } = useMutation({
-    mutationFn: (payload) => api.post("/v1/expenses/addExpenseToDb", payload),
+    mutationFn: (payload) => api.post("/expenses/addExpenseToDb", payload),
     onSuccess: () => {
       setAmount("");
       setDescription("");
