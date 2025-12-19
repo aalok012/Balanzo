@@ -61,11 +61,10 @@ const FormRegistration = () => {
             Create your secure account
           </p>
           <h1 className="mt-2 text-xl font-semibold text-slate-50 sm:text-3xl">
-            Join Balanzo in minutes
+            Join Balanzo today!
           </h1>
           <p className="mt-1 text-xs text-slate-400 sm:text-sm">
-            One account to track balances, budgets, and long-term goals —
-            protected with bank-level security.
+            One account to track balances, budgets, and long-term goals.
           </p>
         </div>
         <div className="w-full">
@@ -149,7 +148,7 @@ const FormRegistration = () => {
                   />
                 </svg>
               </span>
-              <span>Bank-level security • No hidden fees</span>
+              <span>Stay aware of your Expenses</span>
             </p>
             <p className="mt-4 text-center text-xs text-slate-400">
               Already have an account?{" "}

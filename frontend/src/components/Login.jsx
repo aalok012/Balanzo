@@ -40,8 +40,7 @@ const LoginWithGoogleButton = () => {
               Built for calm, secure finance.
             </h2>
             <p className="mt-3 text-sm text-slate-200/85">
-              Bank‑grade encryption, real-time monitoring, and thoughtful design
-              to keep your money where it belongs.
+           Money management made simple and secure.
             </p>
           </div>
           <div className="mt-6 space-y-3 text-xs text-slate-100/90">
@@ -66,10 +65,11 @@ const LoginWithGoogleButton = () => {
                 </svg>
               </span>
               <div>
-                <p className="font-medium text-slate-50">Bank-level security</p>
+                <p className="font-medium text-slate-50">Financial awareness, without the stress.</p>
                 <p className="text-[11px] text-slate-200/80">
-                  256‑bit encryption across all sessions.
-                </p>
+                	•Small insights. Big improvements.
+
+                  s  </p>
               </div>
             </div>
             <div className="flex items-center gap-2">
@@ -201,7 +201,7 @@ const LoginWithGoogleButton = () => {
                   />
                 </svg>
               </span>
-              <span>Bank-level security • Encrypted sign in</span>
+              <span>Get Best Budgeting Feedback • Encrypted sign in</span>
             </div>
           </div>
           <div className="mt-3 flex items-center w-full text-center">
