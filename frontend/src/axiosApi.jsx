@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: '/api/v1', // Replace with your backend API URL
+  baseURL: '/api', // Replace with your backend API URL
 });
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
