@@ -9,7 +9,7 @@ import api from "../../axiosApi.jsx";      // or "../../axiosApi"
 
 export const Grid = () => {
     return (    
-        <div className="px-4 grid gap-3 grid-cols-12">
+        <div className="grid grid-cols-12 gap-4 px-4 sm:gap-5">
             <StatCards />
             <ActivityGraph />
             <UsageRadar/>

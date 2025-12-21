@@ -6,8 +6,8 @@ import { Plan } from "./Plan.jsx";
 
 export const Sidebar = () => {
   return (
-    <aside className="relative z-10 flex h-full flex-col">
-      <div className="sticky top-4 flex h-[calc(100vh-32px-64px)] flex-col overflow-y-auto rounded-3xl border border-white/10 bg-white/5 px-3 py-4 shadow-[0_18px_40px_rgba(0,0,0,0.7)] backdrop-blur-xl">
+    <aside className="relative z-10 flex flex-col lg:h-full">
+      <div className="flex flex-col rounded-3xl border border-white/10 bg-white/5 px-3 py-4 shadow-[0_18px_40px_rgba(0,0,0,0.7)] backdrop-blur-xl lg:sticky lg:top-4 lg:h-[calc(100vh-32px-64px)] lg:overflow-y-auto">
         <AccountToggle />
         <Search />
         <RouteSelect />

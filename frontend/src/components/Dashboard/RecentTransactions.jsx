@@ -22,25 +22,27 @@ export const RecentTransactions = () => {
                     <FiDollarSign /> Recent Transactions
 
                 </h3>
-                <button className="text-sm text-sky-400 hover:underline">
+                <button className="text-xs text-sky-400 hover:underline sm:text-sm">
                     View All
                 </button>
             </div>
 
-            <table className="w-full table-auto">
-                <TableHead />
+            <div className="overflow-x-auto">
+                <table className="min-w-[520px] w-full table-auto text-xs sm:text-sm">
+                    <TableHead />
 
-                        {recentTransactions?.map((tx) => (
-                            <TableRow
-                                key={tx._id}
-                                date={tx.date}
-                                description={tx.description}
-                                category={tx.category}
-                                amount={tx.amount}
-                            />
-                        ))} 
+                    {recentTransactions?.map((tx) => (
+                        <TableRow
+                            key={tx._id}
+                            date={tx.date}
+                            description={tx.description}
+                            category={tx.category}
+                            amount={tx.amount}
+                        />
+                    ))} 
 
-            </table>
+                </table>
+            </div>
 
         </div>
     );
@@ -74,7 +76,7 @@ const TableRow = ({ date, description, category, amount }) => {
               });
 
     return (
-        <tr className="cursor-pointer border-b border-white/5 text-sm text-slate-100 transition-colors hover:bg-white/5">
+        <tr className="cursor-pointer border-b border-white/5 text-xs text-slate-100 transition-colors hover:bg-white/5 sm:text-sm">
             <td className="py-2">{formatted}</td>
             <td className="py-2">{description}</td>
             <td className="py-2">{category}</td>

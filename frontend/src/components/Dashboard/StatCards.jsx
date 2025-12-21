@@ -82,7 +82,7 @@ const Card = ({
       : "bg-rose-500/20 text-rose-200";
 
   const base =
-    "col-span-4 rounded-2xl p-4 shadow-[0_18px_40px_rgba(0,0,0,0.65)] border backdrop-blur-xl";
+    "col-span-12 min-w-0 rounded-2xl border p-4 shadow-[0_18px_40px_rgba(0,0,0,0.65)] backdrop-blur-xl sm:col-span-6 lg:col-span-4";
 
   const variantClasses =
     variant === "green"
@@ -98,7 +98,7 @@ const Card = ({
           <h3 className="mb-2 text-xs font-medium uppercase tracking-[0.16em] text-slate-300">
             {title}
           </h3>
-          <p className="text-3xl font-semibold text-[#E8EAED]">{value}</p>
+          <p className="text-2xl font-semibold text-[#E8EAED] sm:text-3xl">{value}</p>
         </div>
 
         <span

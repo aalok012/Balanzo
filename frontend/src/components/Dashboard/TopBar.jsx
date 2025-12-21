@@ -27,7 +27,7 @@ export const TopBar = () => {
 
   return (
     <div className="mb-4 mt-2 border-b border-white/10 px-4 pb-4">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <span className="block text-sm font-semibold tracking-wide text-[#E8EAED]">
             {greeting}, {firstName}!
@@ -35,7 +35,7 @@ export const TopBar = () => {
           <span className="block text-xs text-slate-400">{formattedDate}</span>
         </div>
 
-        <button className="flex items-center gap-2 rounded-full bg-white/5 px-3 py-1.5 text-xs font-medium text-slate-100 shadow-[0_0_0_1px_rgba(48,120,255,0.35)] transition-colors hover:bg-white/10">
+        <button className="flex w-full items-center justify-center gap-2 rounded-full bg-white/5 px-3 py-1.5 text-xs font-medium text-slate-100 shadow-[0_0_0_1px_rgba(48,120,255,0.35)] transition-colors hover:bg-white/10 sm:w-auto">
           <SlCalender />
           <span>Last 30 days</span>
         </button>
