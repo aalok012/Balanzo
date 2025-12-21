@@ -115,7 +115,8 @@ const registerUser = asyncHandler (async(req, res)=> {
 
        const options = {
         httpOnly: true,
-        secure: true
+        secure: false,
+        sameSite: "lax",
        }
 
        return res.status(200)  // Changed 202 to 200
@@ -142,7 +143,8 @@ const logoutUser = asyncHandler(async(req,res)=>{
 
         const options={
                 httpOnly: true,
-                secure: true
+                secure: false,
+                sameSite: "lax",
         }
         return res.status(204)
         .clearCookie("accessToken", options) //options cause it was passed in creating cookies
@@ -177,7 +179,8 @@ const refreshAccessToken= asyncHandler( async (req,res) => {
      
          const options={
              httpOnly:true,
-             secure: true
+             secure: false,
+             sameSite: "lax",
          }
          const {accessToken, refreshToken}= await generateAccessandRefreshToken(user._id)
      

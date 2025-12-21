@@ -14,7 +14,7 @@ const FormRegistration = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await api.post("/v1/users/register", {
+      await api.post("/users/register", {
         username,
         password,
         email,
