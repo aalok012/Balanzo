@@ -9,7 +9,7 @@ export const RecentTransactions = () => {
     const { data: recentTransactions, isLoading, error } = useQuery({
         queryKey: ["recentTransactions"],
         queryFn: async () => {
-            const res = await api.get("/expenses/getAllExpenses");
+            const res = await api.get("/v1/expenses/getAllExpenses");
             return res.data.data; // array of recent transactions
         }
     });

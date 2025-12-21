@@ -11,7 +11,7 @@ export const StatCards = () => {
   } = useQuery({
     queryKey: ["totalexpenses"],
     queryFn: async () => {
-      const res = await api.get("/expenses/sumAmount");
+      const res = await api.get("/v1/expenses/sumAmount");
       return res.data.data; // array: [{ _id: null, totalAmt }]
     },
   });
@@ -23,7 +23,7 @@ export const StatCards = () => {
   } = useQuery({
     queryKey: ["monthlyAvg"],
     queryFn: async () => {
-      const res = await api.get("/expenses/monthlyAvg");
+      const res = await api.get("/v1/expenses/monthlyAvg");
       return res.data.data; // array of { _id, avgAmt }
     },
   });

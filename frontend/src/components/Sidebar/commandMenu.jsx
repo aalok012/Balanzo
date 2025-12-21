@@ -34,7 +34,7 @@ export const CommandMenu = ({ open, setOpen, searchTerm }) => {
       try {
         setLoading(true);
         setError("");
-        const res = await api.post("/expenses/searchExpense", {
+        const res = await api.post("/v1/expenses/searchExpense", {
           search: q,
         });
         if (!cancelled) {
