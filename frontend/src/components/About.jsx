@@ -4,20 +4,20 @@ import profileImg from "../images/profile-img.jpeg";
 export function About() {
   return (
     <section className="relative flex flex-1 flex-col overflow-hidden bg-gradient-to-br from-sky-950 via-sky-900 to-slate-950 text-slate-50">
-      // animated background pattern
+      {/* animated background pattern */}
       <div className="pointer-events-none absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.35)_0,_transparent_55%),radial-gradient(circle_at_bottom,_rgba(59,130,246,0.35)_0,_transparent_55%)]" />
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(120deg,rgba(148,163,184,0.15)_1px,transparent_1px),linear-gradient(210deg,rgba(148,163,184,0.1)_1px,transparent_1px)] bg-[length:160px_160px]" />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 py-16 lg:py-24 space-y-12">
-        // page label
+        {/* page label */}
         <div className="inline-flex items-center gap-2 rounded-full border border-sky-500/40 bg-sky-500/10 px-3 py-1 text-[11px] font-medium text-sky-100 backdrop-blur-sm">
           <span className="inline-flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
           <span>About Balanzo</span>
         </div>
 
-        // main hero: personal card + app section 
+        {/* personal card + app section */}
         <div className="grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.3fr)] items-stretch">
-          // Personal card section 
+          {/* Personal card section */}
           <div className="relative">
             <div className="absolute -inset-1 rounded-3xl bg-gradient-to-br from-sky-400 via-blue-500 to-teal-400 opacity-60 blur-xl" />
             <div className="relative rounded-3xl bg-slate-900/70 border border-sky-500/40 shadow-[0_18px_45px_rgba(15,23,42,0.8)] px-6 py-7 sm:px-7 sm:py-8 flex flex-col gap-4 transition-transform duration-300 hover:-translate-y-1">
@@ -67,14 +67,14 @@ export function About() {
             </div>
           </div>
 
-          // Balazo / Balanzo app section 
+          {/* Balanzo app section */}
           <div className="relative">
-            // floating icons 
+            {/* floating icons */}
             <div className="pointer-events-none absolute -top-6 -right-4 h-10 w-10 rounded-2xl bg-sky-500/30 blur-sm animate-pulse" />
             <div className="pointer-events-none absolute bottom-0 -left-6 h-12 w-12 rounded-full bg-emerald-400/25 blur-md animate-pulse" />
 
             <div className="relative rounded-3xl bg-gradient-to-br from-sky-600 via-blue-700 to-slate-900 border border-sky-300/40 shadow-[0_22px_60px_rgba(15,23,42,0.9)] px-6 py-7 sm:px-9 sm:py-9 text-slate-50 overflow-hidden">
-              // top strip 
+              {/* top strip */}
               <div className="flex items-center justify-between mb-6">
                 <div>
                   <p className="text-xs uppercase tracking-[0.18em] text-sky-100/80">
@@ -91,13 +91,11 @@ export function About() {
                   </span>
                 </div>
               </div>
-
-              // feature chips 
               
 
-              //Dashboard area
+              {/*  dashboard preview */}
               <div className="grid gap-4 md:grid-cols-[1.2fr_0.9fr] items-start">
-                // charts area  
+                {/* charts area */}
                 <div className="rounded-2xl bg-slate-950/40 border border-sky-400/40 p-4 shadow-inner">
                   <div className="flex items-center justify-between mb-3">
                     <p className="text-xs text-slate-200">Spending overview</p>
@@ -105,7 +103,7 @@ export function About() {
                       +18.4% this month
                     </span>
                   </div>
-                  //animated bars 
+                  {/* animated bars */}
                   <div className="flex items-end gap-1.5 h-24 mb-3">
                     {[30, 55, 45, 75, 60, 90].map((h, idx) => (
                       <div
@@ -127,7 +125,7 @@ export function About() {
                   </div>
                 </div>
 
-                // side stats 
+                {/* side stats */}
                 <div className="space-y-3 text-xs">
                   <div className="rounded-2xl bg-slate-950/40 border border-emerald-300/40 p-3">
                     <div className="flex items-center justify-between mb-1">
