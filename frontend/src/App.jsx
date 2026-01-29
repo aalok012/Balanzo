@@ -19,12 +19,12 @@ export default function App() {
   <BrowserRouter>
       <Routes>
 
-        {/* All main pages share the public layout + navbar */}
+         // All main pages share the public layout + navbar
         <Route element={<PublicLayout />}>
-          {/* Animated homepage */}
+           // Animated homepage
           <Route path="/" element={<Home />} />
 
-          {/* Public auth + info pages */}
+           // Public auth + info pages
           <Route
             path="/login"
             element={
@@ -44,7 +44,7 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/expenses/new" element={<AddExpense />} />
 
-          {/* Protected Dashboard with sidebar layout */}
+           // Protected Dashboard with sidebar layout  
           <Route
             path="/Dashboard"
             element={
@@ -56,11 +56,11 @@ export default function App() {
             <Route index element={<Dashboard />} />
           </Route>
 
-          {/* Logout helper route */}
+           // Logout helper route  
           <Route path="/logout" element={<Logout />} />
         </Route>
 
-        {/* Default → redirect to homepage */}
+         // Default → redirect to homepage 
         <Route path="*" element={<Navigate to="/" />} />
 
       </Routes>

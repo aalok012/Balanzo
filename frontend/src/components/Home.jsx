@@ -7,10 +7,10 @@ export default function Home() {
     <section className="relative flex flex-1 flex-col overflow-hidden bg-gradient-to-b from-sky-50 via-sky-100 to-white text-slate-900">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.25)_0,_transparent_55%),_radial-gradient(circle_at_bottom,_rgba(56,189,248,0.2)_0,_transparent_55%)]" />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 py-16 lg:py-24">
-        {/* Hero */}
+      <div className="relative z-1  0 max-w-6xl mx-auto px-4 py-16 lg:py-24">
+      // Hero 
         <div className="flex flex-col lg:flex-row items-center gap-12">
-          {/* Text / CTA */}
+          // Text  CTA  
           <div className="flex-1 space-y-6">
             <div className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50/80 px-3 py-1 text-xs font-medium text-sky-700">
               <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
@@ -58,7 +58,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Sample charts (hero preview) */}
+          // Sample charts (hero preview)
           <div className="flex-1 w-full max-w-md lg:max-w-lg">
             <div className="relative">
               <div className="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-sky-300 via-blue-400 to-indigo-400 opacity-40 blur-2xl" />
@@ -77,7 +77,7 @@ export default function Home() {
                   </span>
                 </div>
 
-                {/* Mini bar chart */}
+                // Mini bar chart  
                 <div className="mb-4">
                   <div className="flex items-end gap-1.5 h-28">
                     {[40, 60, 55, 80, 65, 90].map((height, idx) => (
@@ -100,7 +100,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Simple line graph */}
+                // Simple line graph 
                 <div className="mb-6">
                   <div className="mb-1 flex items-center justify-between text-[10px] text-slate-500">
                     <span>Last 7 days</span>
@@ -142,7 +142,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Category split chart */}
+                // Category split chart  
                 <div className="flex items-center gap-4">
                   <div className="relative h-24 w-24">
                     <div className="absolute inset-0 rounded-full bg-slate-100" />
