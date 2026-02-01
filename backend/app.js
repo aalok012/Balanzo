@@ -16,12 +16,11 @@ app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// routes declaration
-app.use("/users", userRouter); // if the user types /users the control goes to the userRouter.
-app.use("/expenses" ,expenseRouter) // if the user types/ expense the control goes to the expenseRouter
+// routes declaration (must match frontend baseURL: VITE_API_URL + /api/v1)
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/expenses", expenseRouter);
 
-//Example of the direction of route
-// http://localhost:8000/api/v1/users/register
+// Example: http://localhost:8000/api/v1/users/register
 
 export default app;
 

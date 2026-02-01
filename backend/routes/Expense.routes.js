@@ -17,7 +17,7 @@ const router = Router();
 
 router.route("/addExpenseToDb").post(verifyJwt, addExpenseToDb);
 router.route("/getAllExpenses").get(verifyJwt, getAllExpenses);
-router.route("/amountByCategory").get(verifyJwt, AmountByCategory);
+router.route("/AmountByCategory").get(verifyJwt, AmountByCategory);
 router.route("/sumAmount").get(verifyJwt, sumAmount);
 router.route("/monthlyAvg").get(verifyJwt, monthlyAvg);
 router.route("/getDatedExpense").get(verifyJwt, getDatedExpense);
