@@ -1,11 +1,11 @@
 import axios from "axios";
 
-// Production: https://api.balanzo.tech | Development: VITE_API_URL or localhost:8000
+// Production: /config.js (edit on server without rebuild) | Dev: VITE_API_URL or localhost
 const getBaseURL = () => {
-  if (import.meta.env.PROD) {
-    return "https://api.balanzo.tech/api/v1";
+  if (import.meta.env.DEV) {
+    return `${import.meta.env.VITE_API_URL || "http://localhost:8000"}/api/v1`;
   }
-  return `${import.meta.env.VITE_API_URL || "http://localhost:8000"}/api/v1`;
+  return (typeof window !== "undefined" && window.API_BASE_URL) || "https://api.balanzo.tech/api/v1";
 };
 
 const api = axios.create({
