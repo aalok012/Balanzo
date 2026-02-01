@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 //designed the home
 export default function Home() {
   const isAuthenticated = Boolean(localStorage.getItem("token"));
+  const userFullname = localStorage.getItem("userFullname") || "";
+  const username = localStorage.getItem("username") || "";
+  const firstName = userFullname.trim().split(/\s+/)[0];
+  const displayName = firstName || username || "there";
   return (
     <section className="relative flex flex-1 flex-col overflow-hidden bg-gradient-to-b from-sky-50 via-sky-100 to-white text-slate-900">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.25)_0,_transparent_55%),_radial-gradient(circle_at_bottom,_rgba(56,189,248,0.2)_0,_transparent_55%)]" />
@@ -12,6 +16,14 @@ export default function Home() {
         <div className="flex flex-col lg:flex-row items-center gap-12">
           {/* Text / CTA */}
           <div className="flex-1 space-y-6">
+            {isAuthenticated && (
+              <div className="rounded-2xl border border-sky-200 bg-sky-50/80 px-4 py-3 text-sm font-bold text-slate-900 shadow-sm">
+                <p>Hi, {displayName}.</p>
+                <p className="text-sky-900">
+                  Welcome back — ready to track today’s spending?
+                </p>
+              </div>
+            )}
             <div className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50/80 px-3 py-1 text-xs font-medium text-sky-700">
               <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
               <span>Glimpse of your daily spending</span>

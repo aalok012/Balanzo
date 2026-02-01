@@ -9,6 +9,15 @@ export default function DashboardLayout() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_#3078ff22_0,_transparent_55%),radial-gradient(circle_at_bottom,_#3dfac822_0,_transparent_55%)]" />
       <Sidebar />
       <div className="relative z-10 flex flex-col">
+        <div className="mb-4 flex items-center justify-end">
+          <button
+            type="button"
+            onClick={() => navigate("/logout")}
+            className="rounded-full border border-rose-500/70 bg-rose-500/10 px-3 py-1 text-xs font-semibold text-rose-200 shadow-sm transition hover:bg-rose-500/20 hover:text-rose-50"
+          >
+            Logout
+          </button>
+        </div>
         <div className="flex-1">
           <Outlet />
         </div>
@@ -19,13 +28,6 @@ export default function DashboardLayout() {
             className="w-full rounded-full border border-slate-600/80 bg-transparent px-3 py-1 text-center text-xs font-medium text-slate-200 transition hover:border-sky-400 hover:text-sky-300 sm:w-auto"
           >
             ← Back to Home
-          </button>
-          <button
-            type="button"
-            onClick={() => navigate("/logout")}
-            className="w-full rounded-full border border-rose-500/70 bg-rose-500/10 px-3 py-1 text-center text-xs font-semibold text-rose-200 shadow-sm transition hover:bg-rose-500/20 hover:text-rose-50 sm:w-auto"
-          >
-            Logout
           </button>
         </div>
       </div>
