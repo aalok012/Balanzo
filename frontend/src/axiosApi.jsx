@@ -1,6 +1,6 @@
 import axios from "axios";
 
-// Production: https://api.balanzo.tech | Dev: VITE_API_URL or localhost
+// Production: /config.js (edit on server without rebuild) | Dev: VITE_API_URL or localhost
 const getBaseURL = () => {
   if (import.meta.env.DEV) {
     return `${import.meta.env.VITE_API_URL || "http://localhost:8000"}/api/v1`;

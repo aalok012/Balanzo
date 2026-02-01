@@ -40,6 +40,8 @@ export const RouteSelect = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname;
+  const detailsActive = path.startsWith("/Dashboard/details");
+  const monthlyActive = path.startsWith("/Dashboard/monthly-breakdowns");
 
   return (
     <div className="space-y-1 text-[11px]">
@@ -59,16 +61,27 @@ export const RouteSelect = () => {
         </button>
       </Route>
 
-      <Route Icon={TbListDetails} title="Details" active={false}>
-        <button className="block w-full text-left text-[10px] text-slate-400 transition hover:text-[#E8EAED]">
+      <Route Icon={TbListDetails} title="Details" active={detailsActive}>
+        <button
+          onClick={() => navigate("/Dashboard/details/date")}
+          className="block w-full text-left text-[10px] text-slate-400 transition hover:text-[#E8EAED]"
+        >
           By date
         </button>
-        <button className="block w-full text-left text-[10px] text-slate-400 transition hover:text-[#E8EAED]">
+        <button
+          onClick={() => navigate("/Dashboard/details/category")}
+          className="block w-full text-left text-[10px] text-slate-400 transition hover:text-[#E8EAED]"
+        >
           By category
         </button>
       </Route>
 
-      <Route Icon={TfiBarChartAlt} title="Monthly breakdowns" active={false} />
+      <Route
+        Icon={TfiBarChartAlt}
+        title="Monthly breakdowns"
+        active={monthlyActive}
+        onClick={() => navigate("/Dashboard/monthly-breakdowns")}
+      />
       <Route Icon={FiActivity} title="Activity" active={false} />
       <Route Icon={MdInsights} title="Insights" active={false} />
     </div>

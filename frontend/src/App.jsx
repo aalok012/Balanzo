@@ -12,6 +12,12 @@ import PublicLayout from './components/PublicLayout.jsx';
 import Home from './components/Home.jsx';
 import Logout from './components/Logout.jsx';
 import AddExpense from './components/AddExpense.jsx';
+import AuthCallback from './components/AuthCallback.jsx';
+import DetailsByDate from "./components/Dashboard/Details/DetailsByDate.jsx";
+import DetailsByCategory from "./components/Dashboard/Details/DetailsByCategory.jsx";
+import MonthlyBreakdowns from "./components/Dashboard/MonthlyBreakdowns.jsx";
+import ForgotPassword from "./components/ForgotPassword.jsx";
+import ResetPassword from "./components/ResetPassword.jsx";
 
 export default function App() {
   return (
@@ -33,6 +39,9 @@ export default function App() {
               </PublicRoute>
             }
           />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/auth/callback" element={<AuthCallback />} />
           <Route
             path="/register"
             element={
@@ -54,6 +63,9 @@ export default function App() {
             }
           >
             <Route index element={<Dashboard />} />
+            <Route path="details/date" element={<DetailsByDate />} />
+            <Route path="details/category" element={<DetailsByCategory />} />
+            <Route path="monthly-breakdowns" element={<MonthlyBreakdowns />} />
           </Route>
 
            // Logout helper route  

@@ -1,31 +1,54 @@
 
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import api from "../axiosApi"; // adjust path
+import { useNavigate, Link, useSearchParams } from "react-router-dom";
+import api from "../axiosApi";
+
+const OAUTH_ERROR_MESSAGES = {
+  no_code: "Google sign-in was cancelled or no code was returned.",
+  oauth_not_configured: "Google sign-in is not configured. Please try email/password.",
+  token_exchange_failed: "Google sign-in failed. Try again or use email/password.",
+  userinfo_failed: "Could not get your Google profile. Try again or use email/password.",
+  no_email: "Your Google account has no email we can use. Please use email/password.",
+  no_token: "Sign-in failed. Please try again.",
+};
 
 const LoginWithGoogleButton = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const oauthError = searchParams.get("error");
+  const oauthMessage = oauthError ? (OAUTH_ERROR_MESSAGES[oauthError] || "Google sign-in failed. Try again or use email/password.") : null;
+  const isSignedIn = Boolean(localStorage.getItem("token"));
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const res = await api.post("/users/login", { email, password });
-    const { accessToken, user } = res.data.data;
+    setLoginError("");
+    try {
+      const res = await api.post("/users/login", { email, password });
+      const { accessToken, user } = res.data.data;
 
-    localStorage.setItem("token", accessToken);
-    if (user?.fullname) {
-      localStorage.setItem("userFullname", user.fullname);
-    } else if (user?.username) {
-      localStorage.setItem("userFullname", user.username);
+      localStorage.setItem("token", accessToken);
+      if (user?.fullname) {
+        localStorage.setItem("userFullname", user.fullname);
+      } else if (user?.username) {
+        localStorage.setItem("userFullname", user.username);
+      }
+      if (user?.email) {
+        localStorage.setItem("userEmail", user.email);
+      }
+      if (user?.username) {
+        localStorage.setItem("username", user.username);
+      }
+      navigate("/Dashboard");
+    } catch (err) {
+      const message =
+        err?.response?.data?.message ||
+        err?.message ||
+        "Login failed. Please try again.";
+      setLoginError(message);
     }
-    if (user?.email) {
-      localStorage.setItem("userEmail", user.email);
-    }
-    if (user?.username) {
-      localStorage.setItem("username", user.username);
-    }
-    navigate("/Dashboard");
   };
 
   return (
@@ -109,6 +132,11 @@ const LoginWithGoogleButton = () => {
               Sign in to continue tracking balances, budgets, and insights.
             </p>
           </div>
+          {(oauthMessage || loginError) && (
+            <div className="mb-4 rounded-lg border border-amber-500/50 bg-amber-500/10 px-4 py-2.5 text-sm text-amber-200">
+              {oauthMessage || loginError}
+            </div>
+          )}
           <div className="space-y-4">
             <div>
               <label className="mb-1.5 block text-xs font-medium text-slate-200">
@@ -128,12 +156,12 @@ const LoginWithGoogleButton = () => {
                 <label className="block text-xs font-medium text-slate-200">
                   Password
                 </label>
-                <a
-                  href="#"
+                <Link
+                  to="/forgot-password"
                   className="text-[11px] font-medium text-sky-300 hover:text-sky-200"
                 >
                   Forgot password?
-                </a>
+                </Link>
               </div>
               <input
                 type="password"
@@ -155,9 +183,20 @@ const LoginWithGoogleButton = () => {
               </button>
             </form>
           </div>
-          <button
-            type="button"
-            className="mt-3 flex w-full items-center justify-center rounded-lg border border-slate-700/80 bg-slate-900/60 px-4 py-2.5 text-sm font-medium text-slate-100 transition hover:border-slate-500 hover:bg-slate-900"
+          <a
+            href={isSignedIn ? "#" : `${api.defaults.baseURL}/users/auth/google`}
+            aria-disabled={isSignedIn}
+            onClick={(e) => {
+              if (isSignedIn) {
+                e.preventDefault();
+                setLoginError("You are already signed in.");
+              }
+            }}
+            className={`mt-3 flex w-full items-center justify-center rounded-lg border px-4 py-2.5 text-sm font-medium transition ${
+              isSignedIn
+                ? "cursor-not-allowed border-slate-800 bg-slate-900/30 text-slate-500"
+                : "border-slate-700/80 bg-slate-900/60 text-slate-100 hover:border-slate-500 hover:bg-slate-900"
+            }`}
           >
             <div className="flex items-center gap-3">
               <div className="flex h-6 w-6 items-center justify-center rounded-full bg-slate-950/60">
@@ -181,10 +220,10 @@ const LoginWithGoogleButton = () => {
                 </svg>
               </div>
               <span className="whitespace-nowrap text-sm text-slate-100">
-                Sign in with Google
+                {isSignedIn ? "Already signed in" : "Sign in with Google"}
               </span>
             </div>
-          </button>
+          </a>
           <div className="mt-4 flex w-full items-center justify-between text-[11px] text-slate-500">
             <div className="flex items-center gap-2">
               <span className="flex h-4 w-4 items-center justify-center rounded-full border border-emerald-400/70 bg-emerald-500/10 text-emerald-300">

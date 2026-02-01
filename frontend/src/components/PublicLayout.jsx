@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
-import image11 from "../images/Image_11.png";
+const image11 = "/Image_11.png";
 import Footer from "./Sidebar/Footer.jsx";
 export default function PublicLayout() {
   const location = useLocation();
