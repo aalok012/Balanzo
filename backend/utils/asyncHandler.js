@@ -16,9 +16,18 @@ const asyncHandler = (fn) => async (req,res,next) => {
            await fn(req,res,next)
     }
     catch(error){
-            res.status(error.code || 404).json({
+            const statusCode =
+                typeof error?.StatusCode === "number"
+                  ? error.StatusCode
+                  : typeof error?.statusCode === "number"
+                  ? error.statusCode
+                  : typeof error?.code === "number"
+                  ? error.code
+                  : 500;
+
+            res.status(statusCode).json({
                 success: false,
-                message: error.message
+                message: error?.message || "Something went wrong."
             })
     }
 }

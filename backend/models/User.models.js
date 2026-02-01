@@ -12,7 +12,12 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
+      required: false, // optional for OAuth (e.g. Google)
+    },
+    googleId: {
+      type: String,
+      unique: true,
+      sparse: true, // allow null, unique only when set
     },
     email: {
       type: String,
@@ -35,21 +40,32 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: null,
     },
+
+    // Password reset (email-link flow)
+    passwordResetToken: {
+      type: String,
+      default: null,
+    },
+    passwordResetExpires: {
+      type: Date,
+      default: null,
+    },
   },
   { timestamps: true }
 );
 
 
-//use of prehooks to use jwt and bcrypt
-userSchema.pre('save', async function(next){
-  if(!this.isModified("password")) return next() // only if password is modified otherwise it runs the code again and again
-this.password= await bcrypt.hash(this.password, 12)
+// use of prehooks to use jwt and bcrypt (skip for OAuth users with no password)
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password") || !this.password) return next();
+  this.password = await bcrypt.hash(this.password, 12);
+  next();
 });
 
-userSchema.methods.isPasswordCorrect= async function (password) { //read mongoose definition for the methods
-  return await bcrypt.compare(password, this.password); //gives the boolean value 
-
-}
+userSchema.methods.isPasswordCorrect = async function (password) {
+  if (!this.password) return false;
+  return await bcrypt.compare(password, this.password);
+};
 userSchema.methods.generateAccessToken= function() { 
   return jwt.sign( 
   {
