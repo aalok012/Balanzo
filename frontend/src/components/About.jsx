@@ -1,6 +1,5 @@
 import React from "react";
 import profileImg from "../images/profile-img.jpeg";
-
 export function About() {
   return (
     <section className="relative flex flex-1 flex-col overflow-hidden bg-gradient-to-br from-sky-950 via-sky-900 to-slate-950 text-slate-50">

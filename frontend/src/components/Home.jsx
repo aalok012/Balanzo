@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
 //designed the home
 export default function Home() {
   const isAuthenticated = Boolean(localStorage.getItem("token"));
